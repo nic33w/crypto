@@ -1,26 +1,14 @@
 import Box from "../Box";
 import CryptoChart from "../CryptoChart";
+import { formatNum } from "../../utils/numberFormat";
 
-// I will move this function into a separate util class
-function formatNum(number) {
-  if (number === null) {
-    return "NA";
-  } else if (number < 1000) {
-    return number.toFixed(2);
-  } else if (number < 1000000) {
-    return (number * 0.001).toFixed(1) + "K";
-  } else if (number < 1000000000) {
-    return (number * 0.000001).toFixed(1) + "M";
-  } else if (number < 1000000000000) {
-    return (number * 0.000000001).toFixed(1) + "B";
-  } else {
-    return (number * 0.000000000001).toFixed(1) + "T";
-  }
+function getColor(number) {
+  return number < 0 ? "red" : "lime";
 }
 
 function TableHeader(props) {
   return (
-    <Box width="100%" justifyContent="space-between">
+    <Box width="100%" justifyContent="space-between" fontWeight="bold">
       <Box width="1%">#</Box>
       <Box width="20%">Name</Box>
       <Box width="4%">Price</Box>
@@ -36,16 +24,29 @@ function TableHeader(props) {
 
 function TableRow(props) {
   return (
-    <Box width="100%" justifyContent="space-between" alignItems="center">
+    <Box
+      width="100%"
+      justifyContent="space-between"
+      alignItems="center"
+      borderTop="1px solid"
+      borderColor="grey"
+    >
       <Box width="1%">{props.coin.rank}</Box>
       <Box width="20%">
         <img src={props.coin.image} height="15px" />
+        <Box pr="5px"></Box>
         {props.coin.name + " (" + props.coin.symbol.toUpperCase() + ")"}
       </Box>
-      <Box width="4%">{formatNum(props.coin.price)}</Box>
-      <Box width="4%">{props.coin.price_change_1h.toFixed(2)}</Box>
-      <Box width="4%">{props.coin.price_change_24h.toFixed(2)}</Box>
-      <Box width="4%">{props.coin.price_change_7d.toFixed(2)}</Box>
+      <Box width="4%">${formatNum(props.coin.price)}</Box>
+      <Box width="4%" color={getColor(props.coin.price_change_1h)}>
+        {props.coin.price_change_1h.toFixed(2)}%
+      </Box>
+      <Box width="4%" color={getColor(props.coin.price_change_24h)}>
+        {props.coin.price_change_24h.toFixed(2)}%
+      </Box>
+      <Box width="4%" color={getColor(props.coin.price_change_7d)}>
+        {props.coin.price_change_7d.toFixed(2)}%
+      </Box>
       <Box width="20%">
         {formatNum(props.coin.total_volume) +
           " / " +
@@ -76,6 +77,7 @@ export default function CoinsTable(props) {
       alignItems="center"
       borderRadius="10px"
       bgColor={0}
+      p="10px"
     >
       <TableHeader />
       {props.marketsArray.map((coin) => (

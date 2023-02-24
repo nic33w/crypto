@@ -29,7 +29,6 @@ export default function CryptoChart(props) {
   const labels = props.data.map((element) => {
     const d = new Date(element[0]);
     return d.getMonth() + 1 + "-" + d.getDate();
-    //return d.toDateString();
   });
 
   const options = {
@@ -50,10 +49,13 @@ export default function CryptoChart(props) {
   };
 
   function getColor() {
+    if (props.type === "bar") {
+      return "dodgerblue";
+    }
     if (props.data[0][1] > props.data[props.data.length - 1][1]) {
       return "red";
     } else {
-      return "green";
+      return "lime";
     }
   }
 
@@ -82,7 +84,3 @@ export default function CryptoChart(props) {
     </Box>
   );
 }
-
-// bg="#191B1F"
-// <Line data={data} options={options} />
-// <Bar data={data} options={options} />

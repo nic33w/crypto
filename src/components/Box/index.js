@@ -30,6 +30,8 @@ const Box = styled.div`
 `;
 
 /*
+I'm keeping this as a reference for now
+
 const Box = styled.div(
   {
     display: "flex",
