@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Box from "../Box";
 import CryptoChart from "../CryptoChart";
 import { formatNum } from "../../utils/numberFormat";
@@ -35,7 +36,9 @@ function TableRow(props) {
       <Box width="20%">
         <img src={props.coin.image} height="15px" />
         <Box pr="5px"></Box>
-        {props.coin.name + " (" + props.coin.symbol.toUpperCase() + ")"}
+        <Link to={"/coin/" + props.coin.id}>
+          {props.coin.name + " (" + props.coin.symbol.toUpperCase() + ")"}
+        </Link>
       </Box>
       <Box width="4%">${formatNum(props.coin.price)}</Box>
       <Box width="4%" color={getColor(props.coin.price_change_1h)}>
@@ -86,3 +89,8 @@ export default function CoinsTable(props) {
     </Box>
   );
 }
+
+/*
+<Link key={coin.rank} to={"/coin/" + coin.name}>
+</Link>
+*/

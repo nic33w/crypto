@@ -14,4 +14,12 @@ function formatNum(number) {
   }
 }
 
-export { formatNum };
+function formatNumExact(number) {
+  if (number > 1) {
+    return number.toLocaleString();
+  } else {
+    return number;
+  }
+}
+
+export { formatNum, formatNumExact };

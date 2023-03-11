@@ -63,6 +63,7 @@ async function getMarketsArray() {
   );
   const newData = data.map((element) => {
     const {
+      id,
       market_cap_rank: rank,
       image,
       name,
@@ -78,6 +79,7 @@ async function getMarketsArray() {
       sparkline_in_7d,
     } = element;
     return {
+      id,
       rank,
       image,
       name,
@@ -97,8 +99,15 @@ async function getMarketsArray() {
   return newData;
 }
 
-async function getCoinObject(name) {
-  //
+async function getCoinObject(coinName) {
+  const link =
+    "https://api.coingecko.com/api/v3/coins/" +
+    coinName +
+    "?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false";
+  const data = await getData(link);
+  const { image, name, symbol, links, market_data, description } = data;
+  const newData = { image, name, symbol, links, market_data, description };
+  return newData;
 }
 
 export { f1, getBitcoinObject, getMarketsArray, getCoinObject };
