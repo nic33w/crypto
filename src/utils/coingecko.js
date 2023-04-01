@@ -110,4 +110,22 @@ async function getCoinObject(coinName) {
   return newData;
 }
 
-export { f1, getBitcoinObject, getMarketsArray, getCoinObject };
+async function getCoinPriceByDate(coinName, date) {
+  const link =
+    "https://api.coingecko.com/api/v3/coins/" +
+    coinName +
+    "/history?date=" +
+    date +
+    "localization=false";
+  const data = await getData(link);
+  const price = data.market_data.current_price.usd;
+  return price;
+}
+
+export {
+  f1,
+  getBitcoinObject,
+  getMarketsArray,
+  getCoinObject,
+  getCoinPriceByDate,
+};
