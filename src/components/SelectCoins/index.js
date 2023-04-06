@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getCoinPriceByDate } from "../../utils/coingecko";
 import Box from "../../components/Box";
 import Select from "../../components/Select";
@@ -12,6 +12,11 @@ export default function SelectCoins(props) {
   const [selectedCoin, setSelectedCoin] = useState(props.marketsArray?.[0]);
   const [purchasedAmount, setPurchasedAmount] = useState(1);
   const [purchasedDate, setPurchasedDate] = useState(new Date());
+
+  useEffect(() => {
+    setSelectedCoin(props.marketsArray[0]);
+  }, [props.marketsArray]);
+
   async function handleClick() {
     const today = new Date();
 
@@ -22,9 +27,17 @@ export default function SelectCoins(props) {
       console.log("info is valid!");
       const json = purchasedDate.toJSON();
       const coingeckoDate = json.split("T")[0].split("-").reverse().join("-");
-      const price = await getCoinPriceByDate(selectedCoin.id, coingeckoDate);
-      console.log("price of ", selectedCoin.name, ": ", price);
-      console.log("amount: ", purchasedAmount);
+      const purchasedPrice = await getCoinPriceByDate(
+        selectedCoin.id,
+        coingeckoDate
+      );
+      const newAsset = {
+        ...selectedCoin,
+        purchasedAmount,
+        purchasedDate,
+        purchasedPrice,
+      };
+      props.handleAddAsset(newAsset);
     } else {
       if (!isAmountValid) {
         console.log("Purchased Amount is invalid");
