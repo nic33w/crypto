@@ -17,38 +17,6 @@ export default function SelectCoins(props) {
     setSelectedCoin(props.marketsArray[0]);
   }, [props.marketsArray]);
 
-  function createNewAsset(purchasedPrice) {
-    const {
-      id,
-      image,
-      name,
-      symbol,
-      price,
-      price_change_24h,
-      market_cap,
-      total_volume,
-      circulating_supply,
-      total_supply,
-    } = selectedCoin;
-    return {
-      ...{
-        id,
-        image,
-        name,
-        symbol,
-        price,
-        price_change_24h,
-        market_cap,
-        total_volume,
-        circulating_supply,
-        total_supply,
-      },
-      purchasedAmount: purchasedAmount,
-      purchasedDate: purchasedDate,
-      purchasedPrice: purchasedPrice,
-    };
-  }
-
   async function handleClick() {
     const today = new Date();
 
@@ -63,8 +31,12 @@ export default function SelectCoins(props) {
         selectedCoin.id,
         coingeckoDate
       );
-      const newAsset = createNewAsset(purchasedPrice);
-      console.log("newAsset: ", newAsset);
+      const newAsset = {
+        ...selectedCoin,
+        purchasedAmount,
+        purchasedDate,
+        purchasedPrice,
+      };
       props.handleAddAsset(newAsset);
     } else {
       if (!isAmountValid) {
