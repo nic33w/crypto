@@ -10,7 +10,6 @@ export default function NavigationBar(props) {
   useEffect(() => {
     const asyncSetCurrencyArray = async () => {
       const newArray = await getAllCurrencies();
-      console.log("currencies Array: ", newArray);
       setCurrencyArray(newArray);
     };
     asyncSetCurrencyArray();

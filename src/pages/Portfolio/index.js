@@ -13,7 +13,6 @@ export default function Portfolio(props) {
   useEffect(() => {
     const asyncSetMarketsArray = async () => {
       const newArray = await getMarketsArray(props.currency);
-      console.log("Markets Array: ", newArray);
       setMarketsArray(newArray);
     };
     asyncSetMarketsArray();

@@ -99,18 +99,3 @@ export default function CoinsTable(props) {
     </InfiniteScroll>
   );
 }
-
-/*
-<Link key={coin.rank} to={"/coin/" + coin.name}>
-</Link>
-
-
-<InfiniteScroll
-      dataLength={props.marketsArray.length}
-      next={props.handleAddMoreMarketsArray}
-      hasMore={true}
-      loader={<div>Loading...</div>}
-    >
-
-</InfiniteScroll>
-*/
