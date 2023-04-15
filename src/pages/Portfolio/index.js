@@ -5,29 +5,35 @@ import { getMarketsArray } from "../../utils/coingecko";
 import { formatNum } from "../../utils/numberFormat";
 import StyledButton from "../../components/StyledButton";
 
-export default function Portfolio() {
+export default function Portfolio(props) {
   const [marketsArray, setMarketsArray] = useState([]);
   const [assetsArray, setAssetsArray] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const asyncSetMarketsArray = async () => {
-      const newArray = await getMarketsArray();
+      const newArray = await getMarketsArray(props.currency);
       console.log("Markets Array: ", newArray);
       setMarketsArray(newArray);
     };
     asyncSetMarketsArray();
-  }, []);
+  }, [props.currency]);
 
   function handleAddAsset(newAsset) {
     setAssetsArray([...assetsArray, newAsset]);
   }
 
+  function handleCloseModal() {
+    setShowModal(false);
+  }
+
   const PortoflioAsset = (props) => {
     const asset = props.asset;
+    const market = marketsArray.find((element) => element.id === asset.id);
     return (
       <Box
         width="100%"
-        key={asset.id}
+        key={market.id}
         justifyContent="space-between"
         margin="10px"
       >
@@ -41,9 +47,9 @@ export default function Portfolio() {
           alignItems="center"
         >
           <Box justifyContent="center">
-            <img src={asset.image} height="30px" />
+            <img src={market.image} height="30px" />
           </Box>
-          <Box>{asset.name}</Box>
+          <Box>{market.name}</Box>
         </Box>
         <Box width="85%" flexDirection="column" fontSize="10px">
           <Box>Market Price:</Box>
@@ -53,15 +59,15 @@ export default function Portfolio() {
             borderRadius="10px"
             justifyContent="space-between"
           >
-            <Box>Current Price: ${formatNum(asset.price)}</Box>
-            <Box>Price Change 24h: ${formatNum(asset.price_change_24h)}</Box>
+            <Box>Current Price: ${formatNum(market.price)}</Box>
+            <Box>Price Change 24h: ${formatNum(market.price_change_24h)}</Box>
             <Box>
               Market Cap vs Volume:{" "}
-              {100 * formatNum(asset.total_volume / asset.market_cap)}%
+              {100 * formatNum(market.total_volume / market.market_cap)}%
             </Box>
             <Box>
               Circ supply vs max supply:{" "}
-              {formatNum(asset.total_supply - asset.circulating_supply)}
+              {formatNum(market.total_supply - market.circulating_supply)}
             </Box>
           </Box>
           <Box>Your Coin: </Box>
@@ -73,11 +79,11 @@ export default function Portfolio() {
           >
             <Box>Coin Amount: {asset.purchasedAmount}</Box>
             <Box>
-              Amount Value: ${formatNum(asset.purchasedAmount * asset.price)}
+              Amount Value: ${formatNum(asset.purchasedAmount * market.price)}
             </Box>
             <Box>
               Amount price change since purchase:{" $"}
-              {formatNum(asset.price - asset.purchasedPrice)}
+              {formatNum(market.price - asset.purchasedPrice)}
             </Box>
             <Box>Purchase date: {asset.purchasedDate.toLocaleDateString()}</Box>
           </Box>
@@ -96,19 +102,35 @@ export default function Portfolio() {
         p="40px"
       >
         <Box>
-          <StyledButton isPrimary={true}>Add Asset</StyledButton>
+          <StyledButton isPrimary={true} onClick={() => setShowModal(true)}>
+            Add Asset
+          </StyledButton>
         </Box>
         <Box width="100%">Your statistics</Box>
         <Box width="100%" flexDirection="column">
           {assetsArray.map((asset) => (
-            <PortoflioAsset key={asset.id} asset={asset} />
+            <PortoflioAsset
+              key={
+                "" +
+                asset.id +
+                asset.purchasedAmount +
+                asset.purchasedDate.toLocaleDateString()
+              }
+              asset={asset}
+            />
           ))}
         </Box>
       </Box>
-      <SelectCoins
-        marketsArray={marketsArray}
-        handleAddAsset={handleAddAsset}
-      />
+      {showModal ? (
+        <SelectCoins
+          marketsArray={marketsArray}
+          handleAddAsset={handleAddAsset}
+          handleCloseModal={handleCloseModal}
+          currency={props.currency}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

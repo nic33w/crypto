@@ -29,7 +29,8 @@ export default function SelectCoins(props) {
       const coingeckoDate = json.split("T")[0].split("-").reverse().join("-");
       const purchasedPrice = await getCoinPriceByDate(
         selectedCoin.id,
-        coingeckoDate
+        coingeckoDate,
+        props.currency
       );
       const newAsset = {
         ...selectedCoin,
@@ -58,6 +59,9 @@ export default function SelectCoins(props) {
         flexDirection="column"
         bgColor={2}
         borderRadius="5px"
+        position="absolute"
+        top="25%"
+        left="25%"
       >
         <Box fontWeight="bold">Select Coins</Box>
         <Box width="90%" justifyContent="space-evenly">
@@ -78,6 +82,7 @@ export default function SelectCoins(props) {
           <Box flexDirection="column" width="50%">
             <Box width="100%">
               <Select
+                bgColor={0}
                 value={selectedCoin?.id}
                 onChange={(e) =>
                   setSelectedCoin(
@@ -100,6 +105,7 @@ export default function SelectCoins(props) {
             </Box>
             <Box width="100%">
               <StyledInput
+                bgColor={0}
                 type="number"
                 onChange={(e) => setPurchasedAmount(parseInt(e.target.value))}
               />
@@ -113,7 +119,9 @@ export default function SelectCoins(props) {
           </Box>
         </Box>
         <Box width="50%" alignItems="center" justifyContent="space-evenly">
-          <StyledButton>Close</StyledButton>
+          <StyledButton onClick={() => props.handleCloseModal()}>
+            Close
+          </StyledButton>
           <StyledButton isPrimary={true} onClick={() => handleClick()}>
             Save and Continue
           </StyledButton>

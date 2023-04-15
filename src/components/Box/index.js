@@ -6,6 +6,7 @@ import {
   layout,
   flexbox,
   border,
+  position,
 } from "styled-system";
 
 const dark = ["#191b1f", "#1f2128", "#2c2f36"];
@@ -27,6 +28,7 @@ const Box = styled.div`
   ${layout}
   ${flexbox}
   ${border}
+  ${position}
 `;
 
 /*

@@ -4,25 +4,32 @@ import Box from "../../components/Box";
 import CoinsTable from "../../components/CoinsTable";
 import { getBitcoinObject, getMarketsArray } from "../../utils/coingecko";
 
-export default function Coins() {
+export default function Coins(props) {
   const [bitcoinObject, setBitcoinObject] = useState();
   const [marketsArray, setMarketsArray] = useState([]);
 
   useEffect(() => {
     const asyncSetBitcoinObject = async () => {
-      const newObject = await getBitcoinObject();
+      const newObject = await getBitcoinObject(props.currency);
       console.log("Bitcoin Obj: ", newObject);
       setBitcoinObject(newObject);
     };
     const asyncSetMarketsArray = async () => {
-      const newArray = await getMarketsArray();
+      const newArray = await getMarketsArray(props.currency);
       console.log("Markets Array: ", newArray);
       setMarketsArray(newArray);
       //
     };
     asyncSetBitcoinObject();
     asyncSetMarketsArray();
-  }, []);
+  }, [props.currency]);
+
+  async function handleAddMoreMarketsArray() {
+    const n = 1 + marketsArray.length / 50;
+    console.log("n: ", n);
+    const newArray = await getMarketsArray(props.currency, n);
+    setMarketsArray([...marketsArray, ...newArray]);
+  }
 
   return (
     <div>
@@ -42,7 +49,10 @@ export default function Coins() {
             <Box width="90%">
               <Box justifyContent="flex-start">Your Overview</Box>
             </Box>
-            <CoinsTable marketsArray={marketsArray} />
+            <CoinsTable
+              marketsArray={marketsArray}
+              handleAddMoreMarketsArray={handleAddMoreMarketsArray}
+            />
           </Box>
         </div>
       ) : (
