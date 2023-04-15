@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Box from "../Box";
 import CryptoChart from "../CryptoChart";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { formatNum } from "../../utils/numberFormat";
 
 function getColor(number) {
@@ -31,6 +32,7 @@ function TableRow(props) {
       alignItems="center"
       borderTop="1px solid"
       borderColor="grey"
+      padding="10px"
     >
       <Box width="1%">{props.coin.rank}</Box>
       <Box width="20%">
@@ -73,24 +75,27 @@ function TableRow(props) {
 
 export default function CoinsTable(props) {
   return (
-    <Box
-      fontSize="12px"
-      width="90%"
-      flexDirection="column"
-      alignItems="center"
-      borderRadius="10px"
-      bgColor={0}
-      p="10px"
+    <InfiniteScroll
+      dataLength={props.marketsArray.length}
+      next={props.handleAddMoreMarketsArray}
+      hasMore={true}
+      loader={<div>Loading...</div>}
+      height={400}
     >
-      <TableHeader />
-      {props.marketsArray.map((coin) => (
-        <TableRow key={coin.rank} coin={coin} />
-      ))}
-    </Box>
+      <Box
+        fontSize="12px"
+        width="90vw"
+        flexDirection="column"
+        alignItems="center"
+        borderRadius="10px"
+        bgColor={0}
+        p="10px"
+      >
+        <TableHeader />
+        {props.marketsArray.map((coin) => (
+          <TableRow key={coin.rank} coin={coin} />
+        ))}
+      </Box>
+    </InfiniteScroll>
   );
 }
-
-/*
-<Link key={coin.rank} to={"/coin/" + coin.name}>
-</Link>
-*/

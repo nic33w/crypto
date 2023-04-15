@@ -22,4 +22,13 @@ function formatNumExact(number) {
   }
 }
 
-export { formatNum, formatNumExact };
+const dark = ["#191b1f", "#1f2128", "#2c2f36"];
+
+const getBackgroundColor = (props) => {
+  if (!props?.bgColor) {
+    return `background-color: ${dark[1]};`;
+  }
+  return `background-color: ${dark[props.bgColor]};`;
+};
+
+export { formatNum, formatNumExact, getBackgroundColor };

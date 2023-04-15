@@ -47,20 +47,20 @@ async function getData(link) {
   }
 }
 
-async function getBitcoinObject() {
-  const data = await getData(
-    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
-  );
+// coins page - top chart
+async function getBitcoinObject(currency) {
+  const link = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=${currency}&days=180&interval=daily`;
+  const data = await getData(link);
   const { prices, total_volumes: volumes } = data;
   const newData = { prices, volumes };
   console.log("BitcoinObject: ", newData);
   return newData;
 }
 
-async function getMarketsArray() {
-  const data = await getData(
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d"
-  );
+// coins page coins list & portfolio
+async function getMarketsArray(currency, page = 1) {
+  const link = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=50&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`;
+  const data = await getData(link);
   const newData = data.map((element) => {
     const {
       id,
@@ -99,27 +99,30 @@ async function getMarketsArray() {
   return newData;
 }
 
+// coin page
 async function getCoinObject(coinName) {
-  const link =
-    "https://api.coingecko.com/api/v3/coins/" +
-    coinName +
-    "?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false";
+  const link = `https://api.coingecko.com/api/v3/coins/${coinName}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
   const data = await getData(link);
   const { image, name, symbol, links, market_data, description } = data;
   const newData = { image, name, symbol, links, market_data, description };
   return newData;
 }
 
-async function getCoinPriceByDate(coinName, date) {
-  const link =
-    "https://api.coingecko.com/api/v3/coins/" +
-    coinName +
-    "/history?date=" +
-    date +
-    "localization=false";
+// portfolio page - select coin
+async function getCoinPriceByDate(coinName, date, currency) {
+  const link = `https://api.coingecko.com/api/v3/coins/${coinName}/history?date=${date}&localization=false`;
   const data = await getData(link);
-  const price = data.market_data.current_price.usd;
+  const price = data.market_data.current_price[currency];
   return price;
+}
+
+// navbar
+async function getAllCurrencies() {
+  const link =
+    "https://api.coingecko.com/api/v3/simple/supported_vs_currencies";
+  const data = await getData(link);
+  console.log(data);
+  return data;
 }
 
 export {
@@ -128,4 +131,5 @@ export {
   getMarketsArray,
   getCoinObject,
   getCoinPriceByDate,
+  getAllCurrencies,
 };

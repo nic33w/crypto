@@ -4,7 +4,7 @@ import Box from "../../components/Box";
 import { getCoinObject } from "../../utils/coingecko";
 import { formatNum, formatNumExact } from "../../utils/numberFormat";
 
-export default function Coins() {
+export default function Coin(props) {
   const [coinObject, setCoinObject] = useState();
   const params = useParams();
 
@@ -73,27 +73,34 @@ export default function Coins() {
                   fontSize="10px"
                 >
                   <Box fontSize="20px" fontWeight="bold">
-                    ${formatNumExact(coinObject.market_data.current_price.usd)}
+                    $
+                    {formatNumExact(
+                      coinObject.market_data.current_price[props.currency]
+                    )}
                   </Box>
                   <Box flexDirection="column">
                     <Box>
                       All Time High: $
-                      {formatNumExact(coinObject.market_data.ath.usd)}
+                      {formatNumExact(
+                        coinObject.market_data.ath[props.currency]
+                      )}
                     </Box>
                     <Box>
                       {new Date(
-                        coinObject.market_data.ath_date.usd
+                        coinObject.market_data.ath_date[props.currency]
                       ).toDateString()}
                     </Box>
                   </Box>
                   <Box flexDirection="column">
                     <Box>
                       All Time Low: $
-                      {formatNumExact(coinObject.market_data.atl.usd)}
+                      {formatNumExact(
+                        coinObject.market_data.atl[props.currency]
+                      )}
                     </Box>
                     <Box>
                       {new Date(
-                        coinObject.market_data.atl_date.usd
+                        coinObject.market_data.atl_date[props.currency]
                       ).toDateString()}
                     </Box>
                   </Box>
@@ -108,23 +115,29 @@ export default function Coins() {
                 >
                   <Box>
                     Market Cap:{" $"}
-                    {formatNum(coinObject.market_data.market_cap.usd)}
+                    {formatNum(
+                      coinObject.market_data.market_cap[props.currency]
+                    )}
                   </Box>
                   <Box>
                     Fully Dilluted Valuation:{" $"}
                     {formatNum(
-                      coinObject.market_data.fully_diluted_valuation.usd
+                      coinObject.market_data.fully_diluted_valuation[
+                        props.currency
+                      ]
                     )}
                   </Box>
                   <Box>
                     Volume 24h:{" $"}
-                    {formatNum(coinObject.market_data.total_volume.usd)}
+                    {formatNum(
+                      coinObject.market_data.total_volume[props.currency]
+                    )}
                   </Box>
                   <Box>
                     Volume / Market:{" "}
                     {formatNum(
-                      coinObject.market_data.total_volume.usd /
-                        coinObject.market_data.market_cap.usd
+                      coinObject.market_data.total_volume[props.currency] /
+                        coinObject.market_data.market_cap[props.currency]
                     )}
                   </Box>
                   <Box>
