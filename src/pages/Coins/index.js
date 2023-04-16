@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import BitcoinCharts from "../../components/BitcoinCharts";
 import Box from "../../components/Box";
 import CoinsTable from "../../components/CoinsTable";
 import { getBitcoinObject, getMarketsArray } from "../../utils/coingecko";
+import { setMarketsArray } from "./coinsSlice";
 
-export default function Coins(props) {
+export default function Coins() {
   const [bitcoinObject, setBitcoinObject] = useState();
-  const [marketsArray, setMarketsArray] = useState([]);
+  const marketsArray = useSelector((state) => state.coins.marketsArray);
+  const currency = useSelector((state) => state.navigationBar.currency);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const asyncSetBitcoinObject = async () => {
-      const newObject = await getBitcoinObject(props.currency);
-      console.log("Bitcoin Obj: ", newObject);
+      const newObject = await getBitcoinObject(currency);
       setBitcoinObject(newObject);
     };
-    const asyncSetMarketsArray = async () => {
-      const newArray = await getMarketsArray(props.currency);
-      console.log("Markets Array: ", newArray);
-      setMarketsArray(newArray);
-      //
-    };
     asyncSetBitcoinObject();
-    asyncSetMarketsArray();
-  }, [props.currency]);
+  }, [currency]);
 
   async function handleAddMoreMarketsArray() {
     const n = 1 + marketsArray.length / 50;
-    console.log("n: ", n);
-    const newArray = await getMarketsArray(props.currency, n);
-    setMarketsArray([...marketsArray, ...newArray]);
+    const newArray = await getMarketsArray(currency, n);
+    dispatch(setMarketsArray([...marketsArray, ...newArray]));
   }
 
   return (

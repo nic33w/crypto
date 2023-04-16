@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import Box from "../../components/Box";
 import { getCoinObject } from "../../utils/coingecko";
 import { formatNum, formatNumExact } from "../../utils/numberFormat";
+import { useSelector } from "react-redux";
 
-export default function Coin(props) {
+export default function Coin() {
   const [coinObject, setCoinObject] = useState();
   const params = useParams();
+  const currency = useSelector((state) => state.navigationBar.currency);
 
   useEffect(() => {
     const asyncSetCoinObject = async () => {
@@ -75,32 +77,28 @@ export default function Coin(props) {
                   <Box fontSize="20px" fontWeight="bold">
                     $
                     {formatNumExact(
-                      coinObject.market_data.current_price[props.currency]
+                      coinObject.market_data.current_price[currency]
                     )}
                   </Box>
                   <Box flexDirection="column">
                     <Box>
                       All Time High: $
-                      {formatNumExact(
-                        coinObject.market_data.ath[props.currency]
-                      )}
+                      {formatNumExact(coinObject.market_data.ath[currency])}
                     </Box>
                     <Box>
                       {new Date(
-                        coinObject.market_data.ath_date[props.currency]
+                        coinObject.market_data.ath_date[currency]
                       ).toDateString()}
                     </Box>
                   </Box>
                   <Box flexDirection="column">
                     <Box>
                       All Time Low: $
-                      {formatNumExact(
-                        coinObject.market_data.atl[props.currency]
-                      )}
+                      {formatNumExact(coinObject.market_data.atl[currency])}
                     </Box>
                     <Box>
                       {new Date(
-                        coinObject.market_data.atl_date[props.currency]
+                        coinObject.market_data.atl_date[currency]
                       ).toDateString()}
                     </Box>
                   </Box>
@@ -115,29 +113,23 @@ export default function Coin(props) {
                 >
                   <Box>
                     Market Cap:{" $"}
-                    {formatNum(
-                      coinObject.market_data.market_cap[props.currency]
-                    )}
+                    {formatNum(coinObject.market_data.market_cap[currency])}
                   </Box>
                   <Box>
                     Fully Dilluted Valuation:{" $"}
                     {formatNum(
-                      coinObject.market_data.fully_diluted_valuation[
-                        props.currency
-                      ]
+                      coinObject.market_data.fully_diluted_valuation[currency]
                     )}
                   </Box>
                   <Box>
                     Volume 24h:{" $"}
-                    {formatNum(
-                      coinObject.market_data.total_volume[props.currency]
-                    )}
+                    {formatNum(coinObject.market_data.total_volume[currency])}
                   </Box>
                   <Box>
                     Volume / Market:{" "}
                     {formatNum(
-                      coinObject.market_data.total_volume[props.currency] /
-                        coinObject.market_data.market_cap[props.currency]
+                      coinObject.market_data.total_volume[currency] /
+                        coinObject.market_data.market_cap[currency]
                     )}
                   </Box>
                   <Box>
