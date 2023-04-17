@@ -82,10 +82,16 @@ export default function Portfolio() {
             </Box>
             <Box>Purchase date: {asset.purchasedDate}</Box>
           </Box>
+          <Box>
+            <StyledButton onClick={() => dispatch(deleteAsset(asset))}>
+              Delete Asset
+            </StyledButton>
+          </Box>
         </Box>
       </Box>
     );
   };
+
   return (
     <div>
       <Box
@@ -103,12 +109,16 @@ export default function Portfolio() {
         </Box>
         <Box width="100%">Your statistics</Box>
         <Box width="100%" flexDirection="column">
-          {assetsArray?.map((asset) => (
-            <PortoflioAsset
-              key={"" + asset.id + asset.purchasedAmount + asset.purchasedDate}
-              asset={asset}
-            />
-          ))}
+          {marketsArray.length !== 0 ? (
+            assetsArray?.map((asset) => (
+              <PortoflioAsset
+                key={`${asset.id}${asset.purchasedAmount}${asset.purchasedDate}`}
+                asset={asset}
+              />
+            ))
+          ) : (
+            <div></div>
+          )}
         </Box>
       </Box>
       {showModal ? (
