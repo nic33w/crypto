@@ -15,27 +15,16 @@ const darkTheme = {
 };
 
 function App() {
-  const [currency, setCurrency] = useState("usd");
-  function handleSetCurrency(newCurrency) {
-    //console.log("setting currency to ", newCurrency);
-    setCurrency(newCurrency);
-  }
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="App">
         <div>
-          <NavigationBar
-            currency={currency}
-            handleSetCurrency={handleSetCurrency}
-          />
+          <NavigationBar />
           <Routes>
-            <Route path="/" element={<Portfolio currency={currency} />} />
-            <Route path="/coin/:coin" element={<Coin currency={currency} />} />
-            <Route path="/coins/" element={<Coins currency={currency} />} />
-            <Route
-              path="/portfolio/"
-              element={<Portfolio currency={currency} />}
-            />
+            <Route path="/" element={<Portfolio />} />
+            <Route path="/coin/:coin" element={<Coin />} />
+            <Route path="/coins/" element={<Coins />} />
+            <Route path="/portfolio/" element={<Portfolio />} />
           </Routes>
         </div>
       </div>

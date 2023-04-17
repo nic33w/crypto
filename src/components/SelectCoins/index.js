@@ -35,7 +35,7 @@ export default function SelectCoins(props) {
       const newAsset = {
         ...selectedCoin,
         purchasedAmount,
-        purchasedDate,
+        purchasedDate: purchasedDate.toLocaleDateString(),
         purchasedPrice,
       };
       props.handleAddAsset(newAsset);

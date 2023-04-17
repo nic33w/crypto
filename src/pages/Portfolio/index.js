@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addAsset, deleteAsset } from "./portfolioSlice";
 import Box from "../../components/Box";
 import SelectCoins from "../../components/SelectCoins";
-import { getMarketsArray } from "../../utils/coingecko";
 import { formatNum } from "../../utils/numberFormat";
 import StyledButton from "../../components/StyledButton";
 
-export default function Portfolio(props) {
-  const [marketsArray, setMarketsArray] = useState([]);
-  const [assetsArray, setAssetsArray] = useState([]);
+export default function Portfolio() {
   const [showModal, setShowModal] = useState(false);
+  const assetsArray = useSelector((state) => state.portfolio.assetsArray);
+  const marketsArray = useSelector((state) => state.coins.marketsArray);
+  const currency = useSelector((state) => state.navigationBar.currency);
 
-  useEffect(() => {
-    const asyncSetMarketsArray = async () => {
-      const newArray = await getMarketsArray(props.currency);
-      setMarketsArray(newArray);
-    };
-    asyncSetMarketsArray();
-  }, [props.currency]);
+  const dispatch = useDispatch();
 
   function handleAddAsset(newAsset) {
-    setAssetsArray([...assetsArray, newAsset]);
+    dispatch(addAsset(newAsset));
   }
 
   function handleCloseModal() {
@@ -84,7 +80,7 @@ export default function Portfolio(props) {
               Amount price change since purchase:{" $"}
               {formatNum(market.price - asset.purchasedPrice)}
             </Box>
-            <Box>Purchase date: {asset.purchasedDate.toLocaleDateString()}</Box>
+            <Box>Purchase date: {asset.purchasedDate}</Box>
           </Box>
         </Box>
       </Box>
@@ -107,14 +103,9 @@ export default function Portfolio(props) {
         </Box>
         <Box width="100%">Your statistics</Box>
         <Box width="100%" flexDirection="column">
-          {assetsArray.map((asset) => (
+          {assetsArray?.map((asset) => (
             <PortoflioAsset
-              key={
-                "" +
-                asset.id +
-                asset.purchasedAmount +
-                asset.purchasedDate.toLocaleDateString()
-              }
+              key={"" + asset.id + asset.purchasedAmount + asset.purchasedDate}
               asset={asset}
             />
           ))}
@@ -125,7 +116,7 @@ export default function Portfolio(props) {
           marketsArray={marketsArray}
           handleAddAsset={handleAddAsset}
           handleCloseModal={handleCloseModal}
-          currency={props.currency}
+          currency={currency}
         />
       ) : (
         <></>

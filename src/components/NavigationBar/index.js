@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrency } from "./navigationBarSlice";
 import Box from "../../components/Box";
 import StyledInput from "../StyledInput";
 import Select from "../../components/Select";
 import { useEffect, useState } from "react";
-import { getAllCurrencies } from "../../utils/coingecko";
+import { getAllCurrencies, getMarketsArray } from "../../utils/coingecko";
+import { setMarketsArray } from "../../pages/Coins/coinsSlice";
 
-export default function NavigationBar(props) {
+export default function NavigationBar() {
   const [currencyArray, setCurrencyArray] = useState([]);
+  const currency = useSelector((state) => state.navigationBar.currency);
+  const dispatch = useDispatch();
   useEffect(() => {
     const asyncSetCurrencyArray = async () => {
       const newArray = await getAllCurrencies();
@@ -14,6 +19,14 @@ export default function NavigationBar(props) {
     };
     asyncSetCurrencyArray();
   }, []);
+  useEffect(() => {
+    const asyncSetMarketsArray = async () => {
+      const newArray = await getMarketsArray(currency);
+      dispatch(setMarketsArray(newArray));
+    };
+    asyncSetMarketsArray();
+  }, [currency]);
+
   return (
     <Box bgColor={0}>
       <Box justifyContent="space-between" width="100vw">
@@ -59,7 +72,7 @@ export default function NavigationBar(props) {
             bgColor={2}
             borderRadius="10px"
             defaultValue="usd"
-            onChange={(e) => props.handleSetCurrency(e.target.value)}
+            onChange={(e) => dispatch(setCurrency(e.target.value))}
           >
             {currencyArray.map((currency) => (
               <option key={currency} value={currency}>
