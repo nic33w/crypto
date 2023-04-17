@@ -17,15 +17,7 @@ const rootReducer = combineReducers({
   navigationBar: navigationBarReducer,
 });
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
-/*
-export default configureStore({
-  reducer: {
-    portfolio: portfolioReducer,
-    coins: coinsReducer,
-    navigationBar: navigationBarReducer,
-  },
-});
-*/
+
 export const Store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== "production",

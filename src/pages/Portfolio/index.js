@@ -112,9 +112,7 @@ export default function Portfolio() {
           {marketsArray.length !== 0 ? (
             assetsArray?.map((asset) => (
               <PortoflioAsset
-                key={
-                  "" + asset.id + asset.purchasedAmount + asset.purchasedDate
-                }
+                key={`${asset.id}${asset.purchasedAmount}${asset.purchasedDate}`}
                 asset={asset}
               />
             ))
