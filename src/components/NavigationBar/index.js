@@ -22,7 +22,6 @@ export default function NavigationBar() {
   useEffect(() => {
     const asyncSetMarketsArray = async () => {
       const newArray = await getMarketsArray(currency);
-      console.log("Markets Array: ", newArray);
       dispatch(setMarketsArray(newArray));
     };
     asyncSetMarketsArray();
