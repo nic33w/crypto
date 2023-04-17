@@ -23,8 +23,10 @@ export const portfolioSlice = createSlice({
     deleteAsset: (state, action) => {
       state.assetsArray = state.assetsArray.filter(
         (element) =>
-          element.id === action.payload.id &&
-          element.purchasedDate === action.payload.purchasedDate
+          !(
+            element.id === action.payload.id &&
+            element.purchasedDate === action.payload.purchasedDate
+          )
       );
     },
   },
