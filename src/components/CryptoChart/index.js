@@ -52,11 +52,14 @@ export default function CryptoChart(props) {
     if (props.type === "bar") {
       return "dodgerblue";
     }
-    if (props.data[0][1] > props.data[props.data.length - 1][1]) {
-      return "red";
-    } else {
-      return "lime";
+    if (props.data[0]) {
+      if (props.data[0][1] > props.data[props.data.length - 1][1]) {
+        return "red";
+      } else {
+        return "lime";
+      }
     }
+    return "dodgerblue";
   }
 
   const data = {

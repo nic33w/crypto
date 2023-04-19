@@ -58,8 +58,8 @@ async function getBitcoinObject(currency) {
 }
 
 // coins page coins list & portfolio
-async function getMarketsArray(currency, page = 1) {
-  const link = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=50&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`;
+async function getMarketsArray(currency, order = "market_cap_desc", page = 1) {
+  const link = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=${order}&per_page=50&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`;
   const data = await getData(link);
   const newData = data.map((element) => {
     const {

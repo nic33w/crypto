@@ -44,13 +44,13 @@ function TableRow(props) {
       </Box>
       <Box width="4%">${formatNum(props.coin.price)}</Box>
       <Box width="4%" color={getColor(props.coin.price_change_1h)}>
-        {props.coin.price_change_1h.toFixed(2)}%
+        {props.coin.price_change_1h?.toFixed(2)}%
       </Box>
       <Box width="4%" color={getColor(props.coin.price_change_24h)}>
-        {props.coin.price_change_24h.toFixed(2)}%
+        {props.coin.price_change_24h?.toFixed(2)}%
       </Box>
       <Box width="4%" color={getColor(props.coin.price_change_7d)}>
-        {props.coin.price_change_7d.toFixed(2)}%
+        {props.coin.price_change_7d?.toFixed(2)}%
       </Box>
       <Box width="20%">
         {formatNum(props.coin.total_volume) +
@@ -65,7 +65,10 @@ function TableRow(props) {
       <Box width="10%">
         <CryptoChart
           type="line"
-          data={props.coin.sparkline_in_7d.price.map((element) => [0, element])}
+          data={props.coin.sparkline_in_7d?.price.map((element) => [
+            0,
+            element,
+          ])}
           showLabels={false}
         />
       </Box>
@@ -93,7 +96,7 @@ export default function CoinsTable(props) {
       >
         <TableHeader />
         {props.marketsArray.map((coin) => (
-          <TableRow key={coin.rank} coin={coin} />
+          <TableRow key={`${coin.rank}${coin.id}`} coin={coin} />
         ))}
       </Box>
     </InfiniteScroll>

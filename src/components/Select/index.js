@@ -13,9 +13,9 @@ import { getBackgroundColor } from "../../utils/numberFormat";
 const Select = styled.select`
   border-radius: 5px;
   ${getBackgroundColor}
+  color: ${(props) => props.theme.fontColor};
   border-style: none;
   padding: 10px;
-  color: white;
   width: 100%;
   margin: 5px;
   ${space}

@@ -112,6 +112,7 @@ export default function SelectCoins(props) {
             </Box>
             <Box width="85%">
               <StyledDatePicker
+                bgColor={0}
                 selected={purchasedDate}
                 onChange={(date) => setPurchasedDate(date)}
               />

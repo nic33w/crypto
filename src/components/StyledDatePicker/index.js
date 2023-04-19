@@ -1,12 +1,13 @@
 import DatePicker from "react-datepicker";
 import styled from "styled-components";
+import { getBackgroundColor } from "../../utils/numberFormat";
 
 const StyledDatePicker = styled(DatePicker)`
+  ${getBackgroundColor}
+  color: ${(props) => props.theme.fontColor};
   border-radius: 5px;
-  background-color: #191b1f;
   border-style: none;
   padding: 10px;
-  color: white;
   width: 100%;
   margin: 5px;
 `;
