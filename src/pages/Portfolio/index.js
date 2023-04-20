@@ -107,7 +107,7 @@ export default function Portfolio() {
   return (
     <div>
       <Box
-        width="90vw"
+        width="100vw"
         justifyContent="space-evenly"
         alignItems="center"
         flexDirection="column"
