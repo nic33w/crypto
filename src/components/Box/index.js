@@ -8,20 +8,12 @@ import {
   border,
   position,
 } from "styled-system";
-
-const dark = ["#191b1f", "#1f2128", "#2c2f36"];
-
-const getBackgroundColor = (props) =>
-  `background-color: ${dark[props.bgColor]};`;
-
-const getColor = (props) => `color: green`;
+import { getBackgroundColor } from "../../utils/numberFormat";
 
 const Box = styled.div`
   display: flex;
-
   ${getBackgroundColor}
-  color: white;
-
+  color: ${(props) => props.theme.fontColor};
   ${space}
   ${color}
   ${typography}
@@ -31,43 +23,4 @@ const Box = styled.div`
   ${position}
 `;
 
-/*
-I'm keeping this as a reference for now
-
-const Box = styled.div(
-  {
-    display: "flex",
-    borderStyle: "solid",
-    borderColor: "#eeeeea",
-  },
-  space,
-  color,
-  typography,
-  layout,
-  flexbox,
-  border
-);
-
-const Box = styled.div`
-  display: flex;
-  border-style: solid;
-  border-color: #eeeeea;
-
-  ${space}
-  ${color}
-  ${typography}
-  ${layout}
-  ${flexbox}
-  ${border}
-`;
-
-Box.propTypes = {
-  ...space.propTypes,
-  ...color.propTypes,
-  ...typography.propTypes,
-  ...layout.propTypes,
-  ...flexbox.propTypes,
-  ...border.propTypes,
-};
-*/
 export default Box;

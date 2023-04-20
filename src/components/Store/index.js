@@ -11,6 +11,7 @@ const rootPersistConfig = {
   storage,
   whitelist: ["portfolio"],
 };
+
 const rootReducer = combineReducers({
   portfolio: portfolioReducer,
   coins: coinsReducer,

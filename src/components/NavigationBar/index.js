@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrency } from "./navigationBarSlice";
+import { setCurrency, setDarkTheme } from "./navigationBarSlice";
 import Box from "../../components/Box";
 import StyledInput from "../StyledInput";
 import Select from "../../components/Select";
 import { useEffect, useState } from "react";
-import { getAllCurrencies, getMarketsArray } from "../../utils/coingecko";
-import { setMarketsArray } from "../../pages/Coins/coinsSlice";
+import { getAllCurrencies } from "../../utils/coingecko";
 
 export default function NavigationBar() {
   const [currencyArray, setCurrencyArray] = useState([]);
+  const darkTheme = useSelector((state) => state.navigationBar.darkTheme);
   const currency = useSelector((state) => state.navigationBar.currency);
+  const order = useSelector((state) => state.navigationBar.order);
   const dispatch = useDispatch();
   useEffect(() => {
     const asyncSetCurrencyArray = async () => {
@@ -19,17 +20,10 @@ export default function NavigationBar() {
     };
     asyncSetCurrencyArray();
   }, []);
-  useEffect(() => {
-    const asyncSetMarketsArray = async () => {
-      const newArray = await getMarketsArray(currency);
-      dispatch(setMarketsArray(newArray));
-    };
-    asyncSetMarketsArray();
-  }, [currency]);
 
   return (
     <Box bgColor={0}>
-      <Box justifyContent="space-between" width="100vw">
+      <Box justifyContent="space-between" width="100vw" bgColor={0}>
         <nav>
           <Box>
             <Link to="/coins/">
@@ -86,8 +80,9 @@ export default function NavigationBar() {
             fontWeight="bold"
             bgColor={2}
             borderRadius="10px"
+            onClick={() => dispatch(setDarkTheme(!darkTheme))}
           >
-            O
+            {darkTheme ? "DARK" : "LIGHT"}
           </Box>
         </Box>
       </Box>
