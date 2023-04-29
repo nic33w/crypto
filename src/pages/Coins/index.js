@@ -30,7 +30,8 @@ export default function Coins() {
   async function handleAddMoreMarketsArray() {
     const n = 1 + marketsArray.length / 50;
     const newArray = await getMarketsArray(currency, order, n);
-    dispatch(setMarketsArray([...marketsArray, ...newArray]));
+    setMarketsArray([...marketsArray, ...newArray]);
+    //dispatch(setMarketsArray([...marketsArray, ...newArray]));
   }
 
   return (
@@ -38,7 +39,7 @@ export default function Coins() {
       {bitcoinObject ? (
         <div>
           <Box
-            width="98vw"
+            width="100vw"
             justifyContent="center"
             alignItems="center"
             flexDirection="column"
