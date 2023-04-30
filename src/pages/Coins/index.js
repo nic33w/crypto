@@ -31,7 +31,6 @@ export default function Coins() {
     const n = 1 + marketsArray.length / 50;
     const newArray = await getMarketsArray(currency, order, n);
     setMarketsArray([...marketsArray, ...newArray]);
-    //dispatch(setMarketsArray([...marketsArray, ...newArray]));
   }
 
   return (
