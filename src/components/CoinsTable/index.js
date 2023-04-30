@@ -10,7 +10,7 @@ function getColor(number) {
 
 function TableHeader(props) {
   return (
-    <Box width="100%" justifyContent="space-between" fontWeight="bold">
+    <Box width="90vw" justifyContent="space-between" fontWeight="bold">
       <Box width="1%">#</Box>
       <Box width="20%">Name</Box>
       <Box width="4%">Price</Box>
@@ -27,7 +27,7 @@ function TableHeader(props) {
 function TableRow(props) {
   return (
     <Box
-      width="100%"
+      width="90vw"
       justifyContent="space-between"
       alignItems="center"
       borderTop="1px solid"
@@ -87,7 +87,7 @@ export default function CoinsTable(props) {
     >
       <Box
         fontSize="12px"
-        width="90vw"
+        width="100%"
         flexDirection="column"
         alignItems="center"
         borderRadius="10px"
@@ -95,8 +95,8 @@ export default function CoinsTable(props) {
         p="10px"
       >
         <TableHeader />
-        {props.marketsArray.map((coin) => (
-          <TableRow key={`${coin.rank}${coin.id}`} coin={coin} />
+        {props.marketsArray.map((coin, index) => (
+          <TableRow key={`${coin.rank}${coin.id}${index}`} coin={coin} />
         ))}
       </Box>
     </InfiniteScroll>

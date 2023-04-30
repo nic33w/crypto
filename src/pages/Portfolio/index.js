@@ -113,6 +113,7 @@ export default function Portfolio() {
         flexDirection="column"
         bgColor={1}
         p="40px"
+        boxSizing="border-box"
       >
         <Box>
           <StyledButton isPrimary={true} onClick={() => setShowModal(true)}>

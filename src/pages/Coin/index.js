@@ -24,8 +24,6 @@ export default function Coin() {
       {coinObject ? (
         <div>
           <Box
-            width="98vw"
-            height="98vh"
             alignItems="center"
             justifyContent="center"
             flexDirection="column"

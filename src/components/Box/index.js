@@ -14,6 +14,7 @@ const Box = styled.div`
   display: flex;
   ${getBackgroundColor}
   color: ${(props) => props.theme.fontColor};
+  box-sizing: border-box;
   ${space}
   ${color}
   ${typography}
