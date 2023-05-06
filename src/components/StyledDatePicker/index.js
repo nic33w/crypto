@@ -1,6 +1,6 @@
 import DatePicker from "react-datepicker";
 import styled from "styled-components";
-import { getBackgroundColor } from "../../utils/numberFormat";
+import { getBackgroundColor } from "../../utils/numberFormat.tsx";
 
 const StyledDatePicker = styled(DatePicker)`
   ${getBackgroundColor}

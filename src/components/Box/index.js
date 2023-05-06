@@ -8,7 +8,7 @@ import {
   border,
   position,
 } from "styled-system";
-import { getBackgroundColor } from "../../utils/numberFormat";
+import { getBackgroundColor } from "../../utils/numberFormat.tsx";
 
 const Box = styled.div`
   display: flex;
