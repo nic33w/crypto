@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCoinPriceByDate } from "../../utils/coingecko";
+import { getCoinPriceByDate } from "../../utils/coingecko.tsx";
 import Box from "../../components/Box";
 import Select from "../../components/Select";
 

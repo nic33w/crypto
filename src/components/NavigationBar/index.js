@@ -5,7 +5,7 @@ import Box from "../../components/Box";
 import StyledInput from "../StyledInput";
 import Select from "../../components/Select";
 import { useEffect, useState } from "react";
-import { getAllCurrencies } from "../../utils/coingecko";
+import { getAllCurrencies } from "../../utils/coingecko.tsx";
 
 export default function NavigationBar() {
   const [currencyArray, setCurrencyArray] = useState([]);

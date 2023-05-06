@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { addAsset, deleteAsset } from "./portfolioSlice";
 import Box from "../../components/Box";
 import SelectCoins from "../../components/SelectCoins";
-import { formatNum } from "../../utils/numberFormat";
+import { formatNum } from "../../utils/numberFormat.tsx";
 import StyledButton from "../../components/StyledButton";
-import { getMarketsArray } from "../../utils/coingecko";
+import { getMarketsArray } from "../../utils/coingecko.tsx";
 
 export default function Portfolio() {
   const [showModal, setShowModal] = useState(false);

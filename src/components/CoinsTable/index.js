@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Box from "../Box";
 import CryptoChart from "../CryptoChart";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { formatNum } from "../../utils/numberFormat";
+import { formatNum } from "../../utils/numberFormat.tsx";
 
 function getColor(number) {
   return number < 0 ? "red" : "lime";

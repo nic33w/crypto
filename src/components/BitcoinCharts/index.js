@@ -1,6 +1,6 @@
 import Box from "../Box";
 import CryptoChart from "../CryptoChart";
-import { formatNum } from "../../utils/numberFormat";
+import { formatNum } from "../../utils/numberFormat.tsx";
 
 function ChartTitle(props) {
   return (
