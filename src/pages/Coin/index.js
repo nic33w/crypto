@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Box from "../../components/Box";
-import { getCoinObject } from "../../utils/coingecko";
+import { getCoinObject } from "../../utils/coingecko.tsx";
 import { formatNum, formatNumExact } from "../../utils/numberFormat.tsx";
 import { useSelector } from "react-redux";
 

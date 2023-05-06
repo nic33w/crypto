@@ -4,7 +4,7 @@ import BitcoinCharts from "../../components/BitcoinCharts";
 import Box from "../../components/Box";
 import CoinsTable from "../../components/CoinsTable";
 import Select from "../../components/Select";
-import { getBitcoinObject, getMarketsArray } from "../../utils/coingecko";
+import { getBitcoinObject, getMarketsArray } from "../../utils/coingecko.tsx";
 import { setOrder } from "../../components/NavigationBar/navigationBarSlice";
 
 export default function Coins() {
