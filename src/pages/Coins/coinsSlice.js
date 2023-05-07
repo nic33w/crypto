@@ -1,18 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.setMarketsArray = exports.coinsSlice = void 0;
+const toolkit_1 = require("@reduxjs/toolkit");
 const initialState = {
-  marketsArray: [],
+    marketsArray: [],
 };
-
-export const coinsSlice = createSlice({
-  name: "coins",
-  initialState,
-  reducers: {
-    setMarketsArray: (state, action) => {
-      state.marketsArray = action.payload;
+exports.coinsSlice = (0, toolkit_1.createSlice)({
+    name: "coins",
+    initialState,
+    reducers: {
+        setMarketsArray: (state, action) => {
+            state.marketsArray = action.payload;
+        },
     },
-  },
 });
-
-export const { setMarketsArray } = coinsSlice.actions;
-export default coinsSlice.reducer;
+exports.setMarketsArray = exports.coinsSlice.actions.setMarketsArray;
+exports.default = exports.coinsSlice.reducer;
