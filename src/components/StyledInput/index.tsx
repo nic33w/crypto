@@ -8,7 +8,7 @@ import {
   border,
   position,
 } from "styled-system";
-import { getBackgroundColor } from "../../utils/numberFormat.tsx";
+import { getBackgroundColor } from "../../utils/numberFormat";
 
 const StyledInput = styled.input`
   border-radius: 5px;

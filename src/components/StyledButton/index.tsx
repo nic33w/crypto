@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const setColors = (props) => {
+const setColors = (props: { isPrimary: boolean }) => {
   const bgColor = props.isPrimary ? "green" : "white";
   const fontColor = props.isPrimary ? "white" : "green";
   return `background-color: ${bgColor};

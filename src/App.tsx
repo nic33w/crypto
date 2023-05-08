@@ -1,12 +1,11 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Coins from "./pages/Coins";
 import Coin from "./pages/Coin";
-import logo from "./logo.svg";
 import "./App.css";
 import Portfolio from "./pages/Portfolio";
 import NavigationBar from "./components/NavigationBar";
 import { ThemeProvider } from "styled-components";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import Box from "./components/Box";
 
@@ -21,7 +20,10 @@ const lightTheme = {
 };
 
 function App() {
-  const isDarkTheme = useSelector((state) => state.navigationBar.darkTheme);
+  const isDarkTheme = useSelector(
+    (state: { navigationBar: { darkTheme: boolean } }) =>
+      state.navigationBar.darkTheme
+  );
   return (
     <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
       <div className="App">
