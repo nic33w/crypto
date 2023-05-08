@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { getCoinPriceByDate } from "../../utils/coingecko.tsx";
+import { getCoinPriceByDate } from "../../utils/coingecko";
+// @ts-ignore
 import Box from "../../components/Box";
+// @ts-ignore
 import Select from "../../components/Select";
 
 import "react-datepicker/dist/react-datepicker.css";
+// @ts-ignore
 import StyledInput from "../StyledInput";
 import StyledDatePicker from "../StyledDatePicker";
+// @ts-ignore
 import StyledButton from "../StyledButton";
 
-export default function SelectCoins(props) {
+export default function SelectCoins(props: any) {
   const [selectedCoin, setSelectedCoin] = useState(props.marketsArray?.[0]);
   const [purchasedAmount, setPurchasedAmount] = useState(1);
   const [purchasedDate, setPurchasedDate] = useState(new Date());
@@ -84,37 +88,41 @@ export default function SelectCoins(props) {
               <Select
                 bgColor={0}
                 value={selectedCoin?.id}
-                onChange={(e) =>
+                onChange={(e: { target: { value: string } }) =>
                   setSelectedCoin(
                     props.marketsArray?.find(
-                      (coin) => coin.id === e.target.value
+                      (coin: { id: string }) => coin.id === e.target.value
                     )
                   )
                 }
               >
-                {props.marketsArray?.map((coin) => {
-                  const selectOptionValue =
-                    coin.name + " (" + coin.symbol.toUpperCase() + ")";
-                  return (
-                    <option key={coin.id} value={coin.id}>
-                      {selectOptionValue}
-                    </option>
-                  );
-                })}
+                {props.marketsArray?.map(
+                  (coin: { name: string; symbol: string; id: string }) => {
+                    const selectOptionValue =
+                      coin.name + " (" + coin.symbol.toUpperCase() + ")";
+                    return (
+                      <option key={coin.id} value={coin.id}>
+                        {selectOptionValue}
+                      </option>
+                    );
+                  }
+                )}
               </Select>
             </Box>
             <Box width="100%">
               <StyledInput
                 bgColor={0}
                 type="number"
-                onChange={(e) => setPurchasedAmount(parseInt(e.target.value))}
+                onChange={(e: { target: { value: string } }) =>
+                  setPurchasedAmount(parseInt(e.target.value))
+                }
               />
             </Box>
             <Box width="85%">
               <StyledDatePicker
                 bgColor={0}
                 selected={purchasedDate}
-                onChange={(date) => setPurchasedDate(date)}
+                onChange={(date: any) => setPurchasedDate(date)}
               />
             </Box>
           </Box>
