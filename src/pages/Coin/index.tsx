@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+// @ts-ignore
 import Box from "../../components/Box";
-import { getCoinObject } from "../../utils/coingecko.tsx";
-import { formatNum, formatNumExact } from "../../utils/numberFormat.tsx";
+import { getCoinObject } from "../../utils/coingecko";
+import { formatNum, formatNumExact } from "../../utils/numberFormat";
 import { useSelector } from "react-redux";
 
 export default function Coin() {
-  const [coinObject, setCoinObject] = useState();
-  const params = useParams();
-  const currency = useSelector((state) => state.navigationBar.currency);
+  const [coinObject, setCoinObject] = useState<any>();
+  const params = useParams<{ coin: string }>();
+  const currency = useSelector(
+    (state: { navigationBar: { currency: string } }) =>
+      state.navigationBar.currency
+  );
 
   useEffect(() => {
     const asyncSetCoinObject = async () => {
-      const newObject = await getCoinObject(params.coin);
-      console.log("Coin Obj: ", newObject);
-      setCoinObject(newObject);
+      if (params.coin != undefined) {
+        const newObject = await getCoinObject(params.coin);
+        console.log("Coin Obj: ", newObject);
+        setCoinObject(newObject);
+      }
     };
     asyncSetCoinObject();
   }, []);

@@ -50,6 +50,9 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/chart.js": "^2.9.37",
+    "@types/react-chartjs-2": "^2.5.7",
+    "@types/react-datepicker": "^4.11.2",
     "@types/redux-persist": "^4.3.1",
     "@types/styled-components": "^5.1.26",
     "@types/styled-system": "^5.1.16"

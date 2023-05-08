@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+// @ts-ignore
 import { addAsset, deleteAsset } from "./portfolioSlice";
+// @ts-ignore
 import Box from "../../components/Box";
+// @ts-ignore
 import SelectCoins from "../../components/SelectCoins";
+// @ts-ignore
 import { formatNum } from "../../utils/numberFormat.tsx";
+// @ts-ignore
 import StyledButton from "../../components/StyledButton";
+// @ts-ignore
 import { getMarketsArray } from "../../utils/coingecko.tsx";
 
 export default function Portfolio() {
-  const [showModal, setShowModal] = useState(false);
-  const assetsArray = useSelector((state) => state.portfolio.assetsArray);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const assetsArray = useSelector(
+    (state: { portfolio: { assetsArray: any[] } }) =>
+      state.portfolio.assetsArray
+  );
   const [marketsArray, setMarketsArray] = useState([]);
-  const currency = useSelector((state) => state.navigationBar.currency);
+  const currency = useSelector(
+    (state: { navigationBar: { currency: string } }) =>
+      state.navigationBar.currency
+  );
 
   const dispatch = useDispatch();
 
@@ -24,7 +36,7 @@ export default function Portfolio() {
     asyncSetPortfolioMarketsArray();
   }, [currency]);
 
-  function handleAddAsset(newAsset) {
+  function handleAddAsset(newAsset: any) {
     dispatch(addAsset(newAsset));
   }
 
@@ -32,10 +44,12 @@ export default function Portfolio() {
     setShowModal(false);
   }
 
-  const PortoflioAsset = (props) => {
+  const PortoflioAsset = (props: any) => {
     if (marketsArray) {
       const asset = props.asset;
-      const market = marketsArray.find((element) => element.id === asset.id);
+      const market: any = marketsArray.find(
+        (element: any) => element.id === asset.id
+      );
       return (
         <Box
           width="100%"
@@ -69,7 +83,9 @@ export default function Portfolio() {
               <Box>Price Change 24h: ${formatNum(market.price_change_24h)}</Box>
               <Box>
                 Market Cap vs Volume:{" "}
-                {100 * formatNum(market.total_volume / market.market_cap)}%
+                {100 *
+                  Number(formatNum(market.total_volume / market.market_cap))}
+                %
               </Box>
               <Box>
                 Circ supply vs max supply:{" "}
@@ -101,6 +117,8 @@ export default function Portfolio() {
           </Box>
         </Box>
       );
+    } else {
+      return null;
     }
   };
 

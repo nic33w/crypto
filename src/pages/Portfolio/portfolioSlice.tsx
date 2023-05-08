@@ -8,9 +8,9 @@ export const portfolioSlice = createSlice({
   name: "portfolio",
   initialState,
   reducers: {
-    addAsset: (state, action) => {
-      const found = state.assetsArray.find(
-        (element) =>
+    addAsset: (state: { assetsArray: any[] }, action) => {
+      const found: any = state.assetsArray.find(
+        (element: any) =>
           element.id === action.payload.id &&
           element.purchasedDate === action.payload.purchasedDate
       );
@@ -22,7 +22,7 @@ export const portfolioSlice = createSlice({
     },
     deleteAsset: (state, action) => {
       state.assetsArray = state.assetsArray.filter(
-        (element) =>
+        (element: any) =>
           !(
             element.id === action.payload.id &&
             element.purchasedDate === action.payload.purchasedDate
@@ -32,5 +32,7 @@ export const portfolioSlice = createSlice({
   },
 });
 
-export const { addAsset, deleteAsset } = portfolioSlice.actions;
+export const addAsset = portfolioSlice.actions.addAsset;
+export const deleteAsset = portfolioSlice.actions.deleteAsset;
+
 export default portfolioSlice.reducer;

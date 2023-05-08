@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+// @ts-ignore
 import BitcoinCharts from "../../components/BitcoinCharts";
+// @ts-ignore
 import Box from "../../components/Box";
+// @ts-ignore
 import CoinsTable from "../../components/CoinsTable";
+// @ts-ignore
 import Select from "../../components/Select";
-import { getBitcoinObject, getMarketsArray } from "../../utils/coingecko.tsx";
+import { getBitcoinObject, getMarketsArray } from "../../utils/coingecko";
+// @ts-ignore
 import { setOrder } from "../../components/NavigationBar/navigationBarSlice";
 
 export default function Coins() {
-  const [bitcoinObject, setBitcoinObject] = useState();
-  const [marketsArray, setMarketsArray] = useState([]);
-  const currency = useSelector((state) => state.navigationBar.currency);
-  const order = useSelector((state) => state.navigationBar.order);
+  const [bitcoinObject, setBitcoinObject] = useState<any>();
+  const [marketsArray, setMarketsArray] = useState<any>([]);
+  const currency = useSelector(
+    (state: { navigationBar: { currency: string } }) =>
+      state.navigationBar.currency
+  );
+  const order = useSelector(
+    (state: { navigationBar: { order: string } }) => state.navigationBar.order
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,7 +65,9 @@ export default function Coins() {
               <Box justifyContent="flex-start">
                 <Select
                   bgColor={1}
-                  onChange={(e) => dispatch(setOrder(e.target.value))}
+                  onChange={(e: { target: { value: string } }) =>
+                    dispatch(setOrder(e.target.value))
+                  }
                 >
                   <option key="0" value="market_cap_desc">
                     Top Market

@@ -22,6 +22,7 @@ export const navigationBarSlice = createSlice({
   },
 });
 
-export const { setCurrency, setOrder, setDarkTheme } =
-  navigationBarSlice.actions;
+export const setCurrency = navigationBarSlice.actions.setCurrency;
+export const setOrder = navigationBarSlice.actions.setOrder;
+export const setDarkTheme = navigationBarSlice.actions.setDarkTheme;
 export default navigationBarSlice.reducer;

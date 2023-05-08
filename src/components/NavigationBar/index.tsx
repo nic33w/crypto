@@ -1,17 +1,24 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+// @ts-ignore
 import { setCurrency, setDarkTheme } from "./navigationBarSlice";
+// @ts-ignore
 import Box from "../../components/Box";
+// @ts-ignore
 import StyledInput from "../StyledInput";
+// @ts-ignore
 import Select from "../../components/Select";
 import { useEffect, useState } from "react";
+// @ts-ignore
 import { getAllCurrencies } from "../../utils/coingecko.tsx";
+import React from "react";
 
 export default function NavigationBar() {
   const [currencyArray, setCurrencyArray] = useState([]);
-  const darkTheme = useSelector((state) => state.navigationBar.darkTheme);
-  const currency = useSelector((state) => state.navigationBar.currency);
-  const order = useSelector((state) => state.navigationBar.order);
+  const darkTheme = useSelector(
+    (state: { navigationBar: { darkTheme: boolean } }) =>
+      state.navigationBar.darkTheme
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     const asyncSetCurrencyArray = async () => {
@@ -66,9 +73,11 @@ export default function NavigationBar() {
             bgColor={2}
             borderRadius="10px"
             defaultValue="usd"
-            onChange={(e) => dispatch(setCurrency(e.target.value))}
+            onChange={(e: { target: { value: string } }) =>
+              dispatch(setCurrency(e.target.value))
+            }
           >
-            {currencyArray.map((currency) => (
+            {currencyArray.map((currency: string) => (
               <option key={currency} value={currency}>
                 {currency.toUpperCase()}
               </option>
