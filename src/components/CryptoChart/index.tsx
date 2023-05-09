@@ -1,3 +1,4 @@
+// @ts-ignore
 import Box from "../Box";
 import {
   Chart as ChartJS,
@@ -11,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import React from "react";
 import { Line, Bar } from "react-chartjs-2";
 
 ChartJS.register(
@@ -25,8 +27,8 @@ ChartJS.register(
   Legend
 );
 
-export default function CryptoChart(props) {
-  const labels = props.data.map((element) => {
+export default function CryptoChart(props: any) {
+  const labels = props.data.map((element: any) => {
     const d = new Date(element[0]);
     return d.getMonth() + 1 + "-" + d.getDate();
   });
@@ -67,10 +69,10 @@ export default function CryptoChart(props) {
     datasets: [
       {
         label: "Dataset 1",
-        data: props.data.map((element) => element[1]),
+        data: props.data.map((element: any) => element[1]),
         borderColor: getColor(),
         borderWidth: 1,
-        pointStyle: false,
+        pointStyle: false as const,
         tension: 0.5,
         fill: props.type === "area",
       },

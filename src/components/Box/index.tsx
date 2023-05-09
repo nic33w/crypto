@@ -8,16 +8,13 @@ import {
   border,
   position,
 } from "styled-system";
-import { getBackgroundColor } from "../../utils/numberFormat.tsx";
+import { getBackgroundColor } from "../../utils/numberFormat";
 
-const Select = styled.select`
-  border-radius: 5px;
+const Box = styled.div`
+  display: flex;
   ${getBackgroundColor}
   color: ${(props) => props.theme.fontColor};
-  border-style: none;
-  padding: 10px;
-  width: 100%;
-  margin: 5px;
+  box-sizing: border-box;
   ${space}
   ${color}
   ${typography}
@@ -27,4 +24,4 @@ const Select = styled.select`
   ${position}
 `;
 
-export default Select;
+export default Box;

@@ -1,8 +1,10 @@
+// @ts-ignore
 import Box from "../Box";
 import CryptoChart from "../CryptoChart";
-import { formatNum } from "../../utils/numberFormat.tsx";
+import { formatNum } from "../../utils/numberFormat";
+import React from "react";
 
-function ChartTitle(props) {
+function ChartTitle(props: { line1: string; line2: string; line3: string }) {
   return (
     <Box fontSize="12px" flexDirection="column">
       <Box>{props.line1}</Box>
@@ -12,7 +14,7 @@ function ChartTitle(props) {
   );
 }
 
-export default function BitcoinCharts(props) {
+export default function BitcoinCharts(props: any) {
   const lastIndex = props.bitcoinObject.prices.length - 1;
   const today = new Date(props.bitcoinObject.prices[lastIndex][0]);
 
