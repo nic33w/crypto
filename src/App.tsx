@@ -12,11 +12,13 @@ import Box from "./components/Box";
 const darkTheme = {
   backgroundColor: ["#191b1f", "#1f2128", "#2c2f36"],
   fontColor: "#ffffff",
+  hoverFontColor: "deepskyblue",
 };
 
 const lightTheme = {
   backgroundColor: ["#ffffff", "#f0f0f0", "#e0e0e0"],
   fontColor: "#000000",
+  hoverFontColor: "deepskyblue",
 };
 
 function App() {

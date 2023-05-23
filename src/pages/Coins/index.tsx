@@ -54,40 +54,46 @@ export default function Coins() {
             flexDirection="column"
             bgColor={1}
           >
-            <Box width="90%">
+            <Box
+              width="90%"
+              maxWidth={1024}
+              flexDirection="column"
+              gridRowGap="20px"
+              mt="20px"
+            >
               <Box justifyContent="flex-start">Your Overview</Box>
-            </Box>
-            <BitcoinCharts bitcoinObject={bitcoinObject} />
-            <Box width="90%">
+              <BitcoinCharts bitcoinObject={bitcoinObject} />
               <Box justifyContent="flex-start">Your Overview</Box>
-            </Box>
-            <Box width="90%">
-              <Box justifyContent="flex-start">
-                <Select
-                  bgColor={1}
-                  onChange={(e: { target: { value: string } }) =>
-                    dispatch(setOrder(e.target.value))
-                  }
-                >
-                  <option key="0" value="market_cap_desc">
-                    Top Market
-                  </option>
-                  <option key="1" value="market_cap_asc">
-                    Bot Market
-                  </option>
-                  <option key="2" value="volume_desc">
-                    Top Volume
-                  </option>
-                  <option key="3" value="volume_asc">
-                    Bot Volume
-                  </option>
-                </Select>
+              <Box flexDirection="column">
+                <Box maxWidth="120px">
+                  <Select
+                    pt="0px"
+                    mt="0px"
+                    bgColor={1}
+                    onChange={(e: { target: { value: string } }) =>
+                      dispatch(setOrder(e.target.value))
+                    }
+                  >
+                    <option key="0" value="market_cap_desc">
+                      Top Market
+                    </option>
+                    <option key="1" value="market_cap_asc">
+                      Bot Market
+                    </option>
+                    <option key="2" value="volume_desc">
+                      Top Volume
+                    </option>
+                    <option key="3" value="volume_asc">
+                      Bot Volume
+                    </option>
+                  </Select>
+                </Box>
+                <CoinsTable
+                  marketsArray={marketsArray}
+                  handleAddMoreMarketsArray={handleAddMoreMarketsArray}
+                />
               </Box>
             </Box>
-            <CoinsTable
-              marketsArray={marketsArray}
-              handleAddMoreMarketsArray={handleAddMoreMarketsArray}
-            />
           </Box>
         </div>
       ) : (

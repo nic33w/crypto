@@ -13,7 +13,7 @@ function getColor(number: number) {
 
 function TableHeader() {
   return (
-    <Box width="90vw" justifyContent="space-between" fontWeight="bold">
+    <Box width="98%" justifyContent="space-between" fontWeight="bold">
       <Box width="1%">#</Box>
       <Box width="20%">Name</Box>
       <Box width="4%">Price</Box>
@@ -30,19 +30,22 @@ function TableHeader() {
 function TableRow(props: any) {
   return (
     <Box
-      width="90vw"
+      width="100%"
+      maxWidth="1024px"
       justifyContent="space-between"
       alignItems="center"
       borderTop="1px solid"
       borderColor="grey"
-      padding="10px"
+      padding="10px 0px"
     >
       <Box width="1%">{props.coin.rank}</Box>
       <Box width="20%">
         <img src={props.coin.image} height="15px" />
         <Box pr="5px"></Box>
         <Link to={"/coin/" + props.coin.id}>
-          {props.coin.name + " (" + props.coin.symbol.toUpperCase() + ")"}
+          <Box isHoverable={true}>
+            {props.coin.name + " (" + props.coin.symbol.toUpperCase() + ")"}
+          </Box>
         </Link>
       </Box>
       <Box width="4%">${formatNum(props.coin.price)}</Box>
@@ -81,29 +84,37 @@ function TableRow(props: any) {
 
 export default function CoinsTable(props: any) {
   return (
-    <InfiniteScroll
-      dataLength={props.marketsArray.length}
-      next={props.handleAddMoreMarketsArray}
-      hasMore={true}
-      loader={<div>Loading...</div>}
-      height={400}
+    <Box
+      flexDirection="column"
+      fontSize="12px"
+      borderRadius="10px"
+      bgColor={0}
+      p="10px"
     >
-      <Box
-        fontSize="12px"
-        width="100%"
-        flexDirection="column"
-        alignItems="center"
-        borderRadius="10px"
-        bgColor={0}
-        p="10px"
+      <TableHeader />
+      <InfiniteScroll
+        dataLength={props.marketsArray.length}
+        next={props.handleAddMoreMarketsArray}
+        hasMore={true}
+        loader={<div>Loading...</div>}
+        height={450}
       >
-        <TableHeader />
-        {props.marketsArray.map(
-          (coin: { rank: number; id: string }, index: number) => (
-            <TableRow key={`${coin.rank}${coin.id}${index}`} coin={coin} />
-          )
-        )}
-      </Box>
-    </InfiniteScroll>
+        <Box
+          fontSize="12px"
+          width="100%"
+          maxWidth="1024px"
+          flexDirection="column"
+          alignItems="center"
+        >
+          {props.marketsArray.map(
+            (coin: { rank: number; id: string }, index: number) => (
+              <TableRow key={`${coin.rank}${coin.id}${index}`} coin={coin} />
+            )
+          )}
+        </Box>
+      </InfiniteScroll>
+    </Box>
   );
 }
+
+//<TableHeader />
