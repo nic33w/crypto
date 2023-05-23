@@ -15,7 +15,7 @@ const Select = styled.select`
   ${getBackgroundColor}
   color: ${(props) => props.theme.fontColor};
   border-style: none;
-  padding: 10px;
+  padding: 5px;
   width: 100%;
   margin: 5px;
   ${space}
@@ -25,6 +25,9 @@ const Select = styled.select`
   ${flexbox}
   ${border}
   ${position}
+  &:hover {
+    color: ${(props) => props.theme.hoverFontColor};
+  }
 `;
 
 export default Select;

@@ -35,22 +35,31 @@ export default function NavigationBar() {
           <Box>
             <Link to="/coins/">
               <Box
-                p="15px"
+                width="100px"
+                p="10px"
                 m="10px"
+                mx="5px"
+                ml="50px"
                 fontWeight="bold"
                 bgColor={2}
                 borderRadius="10px"
+                isHoverable={true}
+                justifyContent="center"
               >
                 Coins
               </Box>
             </Link>
             <Link to="/portfolio/">
               <Box
-                p="15px"
+                width="100px"
+                p="10px"
                 m="10px"
+                mx="5px"
                 fontWeight="bold"
                 bgColor={2}
                 borderRadius="10px"
+                isHoverable={true}
+                justifyContent="center"
               >
                 Portfolio
               </Box>
@@ -60,15 +69,17 @@ export default function NavigationBar() {
         <Box>
           <StyledInput
             type="text"
-            p="15px"
+            p="10px"
             m="10px"
+            mx="5px"
             fontWeight="bold"
             bgColor={2}
             borderRadius="10px"
           ></StyledInput>
           <Select
-            p="15px"
+            p="10px"
             m="10px"
+            mx="5px"
             fontWeight="bold"
             bgColor={2}
             borderRadius="10px"
@@ -84,11 +95,13 @@ export default function NavigationBar() {
             ))}
           </Select>
           <Box
-            p="15px"
+            p="10px"
             m="10px"
+            mx="5px"
             fontWeight="bold"
             bgColor={2}
             borderRadius="10px"
+            isHoverable={true}
             onClick={() => dispatch(setDarkTheme(!darkTheme))}
           >
             {darkTheme ? "DARK" : "LIGHT"}

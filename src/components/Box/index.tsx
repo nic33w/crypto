@@ -7,6 +7,7 @@ import {
   flexbox,
   border,
   position,
+  grid,
 } from "styled-system";
 import { getBackgroundColor } from "../../utils/numberFormat";
 
@@ -22,6 +23,15 @@ const Box = styled.div`
   ${flexbox}
   ${border}
   ${position}
+  ${grid}
+  &:hover {
+    color: ${(props) =>
+      props.isHoverable
+        ? props.theme.hoverFontColor
+        : props.color
+        ? props.color
+        : props.theme.fontColor};
+  }
 `;
 
 export default Box;

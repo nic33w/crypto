@@ -25,5 +25,8 @@ const StyledInput = styled.input`
   ${flexbox}
   ${border}
   ${position}
+  &:hover {
+    color: ${(props) => props.theme.hoverFontColor};
+  }
 `;
 export default StyledInput;

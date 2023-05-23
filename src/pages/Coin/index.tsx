@@ -30,6 +30,7 @@ export default function Coin() {
       {coinObject ? (
         <div>
           <Box
+            height="80vh"
             alignItems="center"
             justifyContent="center"
             flexDirection="column"
@@ -37,15 +38,18 @@ export default function Coin() {
             fontSize="12px"
           >
             <Box
-              width="80%"
+              width="90%"
+              maxWidth="600px"
               height="100%"
               flexDirection="column"
-              justifyContent="space-evenly"
+              justifyContent="center"
+              gridRowGap="20px"
+              mt="20px"
             >
               <Box>Your Summary</Box>
               <Box justifyContent="space-between">
                 <Box
-                  width="15%"
+                  width="20%"
                   bgColor={0}
                   p="15px"
                   borderRadius="10px"
@@ -69,7 +73,7 @@ export default function Coin() {
                   </Box>
                 </Box>
                 <Box
-                  width="30%"
+                  width="35%"
                   bgColor={0}
                   p="15px"
                   borderRadius="10px"
@@ -108,7 +112,7 @@ export default function Coin() {
                   </Box>
                 </Box>
                 <Box
-                  width="30%"
+                  width="35%"
                   bgColor={0}
                   p="15px"
                   fontSize="10px"

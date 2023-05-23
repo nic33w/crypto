@@ -43,6 +43,7 @@ export default function SelectCoins(props: any) {
         purchasedPrice,
       };
       props.handleAddAsset(newAsset);
+      props.handleCloseModal();
     } else {
       if (!isAmountValid) {
         console.log("Purchased Amount is invalid");
@@ -56,8 +57,10 @@ export default function SelectCoins(props: any) {
   return (
     <div>
       <Box
-        width="50vw"
-        height="50vh"
+        width="100vw"
+        maxWidth="600px"
+        height="100vh"
+        maxHeight="300px"
         justifyContent="space-evenly"
         alignItems="center"
         flexDirection="column"
@@ -65,7 +68,8 @@ export default function SelectCoins(props: any) {
         borderRadius="5px"
         position="absolute"
         top="25%"
-        left="25%"
+        left="50%"
+        ml="-300px"
       >
         <Box fontWeight="bold">Select Coins</Box>
         <Box width="90%" justifyContent="space-evenly">
@@ -118,7 +122,7 @@ export default function SelectCoins(props: any) {
                 }
               />
             </Box>
-            <Box width="85%">
+            <Box width="89%">
               <StyledDatePicker
                 bgColor={0}
                 selected={purchasedDate}
@@ -127,11 +131,15 @@ export default function SelectCoins(props: any) {
             </Box>
           </Box>
         </Box>
-        <Box width="50%" alignItems="center" justifyContent="space-evenly">
-          <StyledButton onClick={() => props.handleCloseModal()}>
+        <Box width="70%" alignItems="center" justifyContent="space-evenly">
+          <StyledButton width="200px" onClick={() => props.handleCloseModal()}>
             Close
           </StyledButton>
-          <StyledButton isPrimary={true} onClick={() => handleClick()}>
+          <StyledButton
+            width="200px"
+            isPrimary={true}
+            onClick={() => handleClick()}
+          >
             Save and Continue
           </StyledButton>
         </Box>

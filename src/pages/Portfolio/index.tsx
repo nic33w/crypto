@@ -51,19 +51,14 @@ export default function Portfolio() {
         (element: any) => element.id === asset.id
       );
       return (
-        <Box
-          width="100%"
-          key={market.id}
-          justifyContent="space-between"
-          margin="10px"
-        >
+        <Box width="100%" key={market.id} justifyContent="space-between">
           <Box
             bgColor={0}
             flexDirection="column"
             justifyContent="center"
             p="10px"
             borderRadius="10px"
-            width="10%"
+            width="13%"
             alignItems="center"
           >
             <Box justifyContent="center">
@@ -109,8 +104,12 @@ export default function Portfolio() {
               </Box>
               <Box>Purchase date: {asset.purchasedDate}</Box>
             </Box>
-            <Box>
-              <StyledButton onClick={() => dispatch(deleteAsset(asset))}>
+            <Box mt="5px">
+              <StyledButton
+                width="100px"
+                padding="5px"
+                onClick={() => dispatch(deleteAsset(asset))}
+              >
                 Delete Asset
               </StyledButton>
             </Box>
@@ -132,14 +131,27 @@ export default function Portfolio() {
         bgColor={1}
         p="40px"
         boxSizing="border-box"
+        gridRowGap="20px"
+        mt="20px"
       >
         <Box>
-          <StyledButton isPrimary={true} onClick={() => setShowModal(true)}>
+          <StyledButton
+            width="250px"
+            isPrimary={true}
+            onClick={() => setShowModal(true)}
+          >
             Add Asset
           </StyledButton>
         </Box>
-        <Box width="100%">Your statistics</Box>
-        <Box width="100%" flexDirection="column">
+        <Box width="100%" maxWidth={1024}>
+          Your statistics
+        </Box>
+        <Box
+          width="100%"
+          maxWidth={1024}
+          flexDirection="column"
+          gridRowGap="10px"
+        >
           {marketsArray?.length !== 0 ? (
             assetsArray?.map((asset) => (
               <PortoflioAsset

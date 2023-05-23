@@ -6,7 +6,7 @@ import React from "react";
 
 function ChartTitle(props: { line1: string; line2: string; line3: string }) {
   return (
-    <Box fontSize="12px" flexDirection="column">
+    <Box padding="10px" fontSize="12px" flexDirection="column">
       <Box>{props.line1}</Box>
       <Box fontSize="16px">{props.line2}</Box>
       <Box>{props.line3}</Box>
@@ -19,7 +19,7 @@ export default function BitcoinCharts(props: any) {
   const today = new Date(props.bitcoinObject.prices[lastIndex][0]);
 
   return (
-    <Box width="90%" justifyContent="space-between">
+    <Box width="100%" justifyContent="space-between">
       <Box width="48%" flexDirection="column" borderRadius="10px" bgColor={0}>
         <ChartTitle
           line1="BTC"

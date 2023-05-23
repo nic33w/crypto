@@ -10,6 +10,9 @@ const StyledDatePicker = styled(DatePicker)`
   padding: 10px;
   width: 100%;
   margin: 5px;
+  &:hover {
+    color: ${(props) => props.theme.hoverFontColor};
+  }
 `;
 
 export default StyledDatePicker;
