@@ -74,6 +74,13 @@ export default function CryptoChart(props: any) {
         borderWidth: 1,
         pointStyle: false as const,
         tension: 0.5,
+        backgroundColor: (context: ScriptableContext<"line">) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 150);
+          gradient.addColorStop(0, "rgba(150,255,150,0.5)");
+          gradient.addColorStop(1, "rgba(0,0,0,0)");
+          return gradient;
+        },
         fill: props.type === "area",
       },
     ],

@@ -75,11 +75,13 @@ export default function NavigationBar() {
             fontWeight="bold"
             bgColor={2}
             borderRadius="10px"
+            placeholder="Search..."
           ></StyledInput>
           <Select
             p="10px"
             m="10px"
             mx="5px"
+            width="60px"
             fontWeight="bold"
             bgColor={2}
             borderRadius="10px"

@@ -69,8 +69,24 @@ async function getMarketsArray(
 async function getCoinObject(coinName: string) {
   const link = `https://api.coingecko.com/api/v3/coins/${coinName}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`;
   const data = await getData(link);
-  const { image, name, symbol, links, market_data, description } = data;
-  const newData = { image, name, symbol, links, market_data, description };
+  const {
+    image,
+    name,
+    symbol,
+    links,
+    market_data,
+    description,
+    market_cap_rank,
+  } = data;
+  const newData = {
+    image,
+    name,
+    symbol,
+    links,
+    market_data,
+    description,
+    market_cap_rank,
+  };
   return newData;
 }
 

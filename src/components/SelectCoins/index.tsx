@@ -58,6 +58,14 @@ export default function SelectCoins(props: any) {
     <div>
       <Box
         width="100vw"
+        height="100vh"
+        position="absolute"
+        top="0%"
+        opacity={0.5}
+        bgColor={0}
+      ></Box>
+      <Box
+        width="100vw"
         maxWidth="600px"
         height="100vh"
         maxHeight="300px"
@@ -72,7 +80,7 @@ export default function SelectCoins(props: any) {
         ml="-300px"
       >
         <Box fontWeight="bold">Select Coins</Box>
-        <Box width="90%" justifyContent="space-evenly">
+        <Box width="90%" justifyContent="center">
           <Box
             bgColor={0}
             flexDirection="column"
@@ -80,16 +88,31 @@ export default function SelectCoins(props: any) {
             p="10px"
             borderRadius="10px"
             width="30%"
+            maxWidth="120px"
             alignItems="center"
+            mr="20px"
           >
-            <Box justifyContent="center">
-              <img src={selectedCoin?.image} height="30px" />
+            <Box
+              justifyContent="center"
+              bgColor={2}
+              borderRadius="5px"
+              height="50px"
+              width="50px"
+              alignItems="center"
+            >
+              <img src={selectedCoin?.image} height="25px" />
             </Box>
-            <Box>{selectedCoin?.name}</Box>
+            <Box fontSize="13px">
+              {selectedCoin?.name +
+                " (" +
+                selectedCoin.symbol.toUpperCase() +
+                ")"}
+            </Box>
           </Box>
           <Box flexDirection="column" width="50%">
             <Box width="100%">
               <Select
+                height="40px"
                 bgColor={0}
                 value={selectedCoin?.id}
                 onChange={(e: { target: { value: string } }) =>
@@ -117,6 +140,7 @@ export default function SelectCoins(props: any) {
               <StyledInput
                 bgColor={0}
                 type="number"
+                defaultValue={1}
                 onChange={(e: { target: { value: string } }) =>
                   setPurchasedAmount(parseInt(e.target.value))
                 }
@@ -131,12 +155,16 @@ export default function SelectCoins(props: any) {
             </Box>
           </Box>
         </Box>
-        <Box width="70%" alignItems="center" justifyContent="space-evenly">
-          <StyledButton width="200px" onClick={() => props.handleCloseModal()}>
+        <Box width="70%" alignItems="center" justifyContent="center">
+          <StyledButton
+            width="150px"
+            mr="10px"
+            onClick={() => props.handleCloseModal()}
+          >
             Close
           </StyledButton>
           <StyledButton
-            width="200px"
+            width="170px"
             isPrimary={true}
             onClick={() => handleClick()}
           >
