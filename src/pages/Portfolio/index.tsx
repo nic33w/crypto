@@ -61,10 +61,19 @@ export default function Portfolio() {
             width="13%"
             alignItems="center"
           >
-            <Box justifyContent="center">
-              <img src={market.image} height="30px" />
+            <Box
+              justifyContent="center"
+              bgColor={2}
+              borderRadius="5px"
+              height="50px"
+              width="50px"
+              alignItems="center"
+            >
+              <img src={market.image} height="25px" />
             </Box>
-            <Box>{market.name}</Box>
+            <Box fontSize="13px">
+              {market.name + " (" + market.symbol.toUpperCase() + ")"}
+            </Box>
           </Box>
           <Box width="85%" flexDirection="column" fontSize="10px">
             <Box>Market Price:</Box>
@@ -74,17 +83,31 @@ export default function Portfolio() {
               borderRadius="10px"
               justifyContent="space-between"
             >
-              <Box>Current Price: ${formatNum(market.price)}</Box>
-              <Box>Price Change 24h: ${formatNum(market.price_change_24h)}</Box>
+              <Box>
+                Current Price:{" "}
+                <Box color="lime" pl="5px">
+                  ${formatNum(market.price)}
+                </Box>
+              </Box>
+              <Box>
+                Price Change 24h:{" "}
+                <Box color="lime" pl="5px">
+                  ${formatNum(market.price_change_24h)}
+                </Box>
+              </Box>
               <Box>
                 Market Cap vs Volume:{" "}
-                {100 *
-                  Number(formatNum(market.total_volume / market.market_cap))}
-                %
+                <Box color="lime" pl="5px">
+                  {100 *
+                    Number(formatNum(market.total_volume / market.market_cap))}
+                  %
+                </Box>
               </Box>
               <Box>
                 Circ supply vs max supply:{" "}
-                {formatNum(market.total_supply - market.circulating_supply)}
+                <Box color="lime" pl="5px">
+                  {formatNum(market.total_supply - market.circulating_supply)}
+                </Box>
               </Box>
             </Box>
             <Box>Your Coin: </Box>
@@ -94,15 +117,32 @@ export default function Portfolio() {
               borderRadius="10px"
               justifyContent="space-between"
             >
-              <Box>Coin Amount: {asset.purchasedAmount}</Box>
               <Box>
-                Amount Value: ${formatNum(asset.purchasedAmount * market.price)}
+                Coin Amount:{" "}
+                <Box color="lime" pl="5px">
+                  {asset.purchasedAmount}
+                </Box>
+              </Box>
+              <Box>
+                Amount Value:{" "}
+                <Box color="lime" pl="5px">
+                  <Box color="lime" pl="5px">
+                    ${formatNum(asset.purchasedAmount * market.price)}
+                  </Box>
+                </Box>
               </Box>
               <Box>
                 Amount price change since purchase:{" $"}
-                {formatNum(market.price - asset.purchasedPrice)}
+                <Box color="lime" pl="5px">
+                  {formatNum(market.price - asset.purchasedPrice)}
+                </Box>
               </Box>
-              <Box>Purchase date: {asset.purchasedDate}</Box>
+              <Box>
+                Purchase date:{" "}
+                <Box color="lime" pl="5px">
+                  {asset.purchasedDate}
+                </Box>
+              </Box>
             </Box>
             <Box mt="5px">
               <StyledButton

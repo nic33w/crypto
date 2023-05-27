@@ -8,7 +8,9 @@ function ChartTitle(props: { line1: string; line2: string; line3: string }) {
   return (
     <Box padding="10px" fontSize="12px" flexDirection="column">
       <Box>{props.line1}</Box>
-      <Box fontSize="16px">{props.line2}</Box>
+      <Box fontSize="18px" fontWeight="bold">
+        {props.line2}
+      </Box>
       <Box>{props.line3}</Box>
     </Box>
   );
@@ -27,7 +29,7 @@ export default function BitcoinCharts(props: any) {
           line3={today.toDateString()}
         />
         <CryptoChart
-          type="line"
+          type="area"
           data={props.bitcoinObject.prices}
           showLabels={true}
         />

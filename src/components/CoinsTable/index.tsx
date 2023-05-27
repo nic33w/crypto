@@ -6,6 +6,7 @@ import CryptoChart from "../CryptoChart";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { formatNum } from "../../utils/numberFormat";
 import React from "react";
+import ColorPair from "../ColorPair";
 
 function getColor(number: number) {
   return number < 0 ? "red" : "lime";
@@ -20,8 +21,8 @@ function TableHeader() {
       <Box width="4%">1h%</Box>
       <Box width="4%">24h%</Box>
       <Box width="4%">7d%</Box>
-      <Box width="20%">24h Volume/Market Cap</Box>
-      <Box width="20%">Circulating/Total Supply</Box>
+      <Box width="19%">24h Volume/Market Cap</Box>
+      <Box width="19%">Circulating/Total Supply</Box>
       <Box width="10%">Last 7d</Box>
     </Box>
   );
@@ -58,15 +59,23 @@ function TableRow(props: any) {
       <Box width="4%" color={getColor(props.coin.price_change_7d)}>
         {props.coin.price_change_7d?.toFixed(2)}%
       </Box>
-      <Box width="20%">
-        {formatNum(props.coin.total_volume) +
-          " / " +
-          formatNum(props.coin.market_cap)}
+      <Box width="19%">
+        <ColorPair
+          pair={[
+            formatNum(props.coin.total_volume),
+            formatNum(props.coin.market_cap),
+          ]}
+          colorNumber={props.index}
+        />
       </Box>
-      <Box width="20%">
-        {formatNum(props.coin.circulating_supply) +
-          " / " +
-          formatNum(props.coin.total_supply)}
+      <Box width="19%">
+        <ColorPair
+          pair={[
+            formatNum(props.coin.circulating_supply),
+            formatNum(props.coin.total_supply),
+          ]}
+          colorNumber={props.index}
+        />
       </Box>
       <Box width="10%">
         <CryptoChart
@@ -108,7 +117,11 @@ export default function CoinsTable(props: any) {
         >
           {props.marketsArray.map(
             (coin: { rank: number; id: string }, index: number) => (
-              <TableRow key={`${coin.rank}${coin.id}${index}`} coin={coin} />
+              <TableRow
+                key={`${coin.rank}${coin.id}${index}`}
+                coin={coin}
+                index={index}
+              />
             )
           )}
         </Box>

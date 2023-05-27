@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+
+import parse from "html-react-parser";
 // @ts-ignore
 import Box from "../../components/Box";
 import { getCoinObject } from "../../utils/coingecko";
 import { formatNum, formatNumExact } from "../../utils/numberFormat";
 import { useSelector } from "react-redux";
+import ColorPair from "../../components/ColorPair";
 
 export default function Coin() {
   const [coinObject, setCoinObject] = useState<any>();
@@ -25,6 +28,36 @@ export default function Coin() {
     asyncSetCoinObject();
   }, []);
 
+  function formatLink(link: string): string {
+    let newLink = link;
+    if (link.startsWith("https://")) {
+      newLink = link.replace("https://", "");
+    }
+    if (link.startsWith("http://")) {
+      newLink = link.replace("http://", "");
+    }
+    if (!newLink.startsWith("www.")) {
+      newLink = "www.".concat(newLink);
+    }
+    return newLink;
+  }
+
+  function createPair(
+    total_supply: number | string,
+    circulating_supply: number | string
+  ): [string, string] {
+    if (
+      typeof total_supply === "number" &&
+      typeof circulating_supply === "number"
+    ) {
+      const percentage2 = Math.round((100 * circulating_supply) / total_supply);
+      const percentage1 = 100 - percentage2;
+      return [percentage1 + "%", percentage2 + "%"];
+    } else {
+      return ["NA", "NA"];
+    }
+  }
+
   return (
     <div>
       {coinObject ? (
@@ -39,27 +72,32 @@ export default function Coin() {
           >
             <Box
               width="90%"
-              maxWidth="600px"
+              maxWidth="665px"
               height="100%"
               flexDirection="column"
-              justifyContent="center"
               gridRowGap="20px"
-              mt="20px"
+              mt="40px"
             >
               <Box>Your Summary</Box>
               <Box justifyContent="space-between">
                 <Box
                   width="20%"
-                  bgColor={0}
-                  p="15px"
-                  borderRadius="10px"
+                  borderRadius="5px"
                   flexDirection="column"
                   alignItems="center"
                   justifyContent="space-between"
                 >
-                  <Box flexDirection="column" alignItems="center">
+                  <Box
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    bgColor={0}
+                    width="100%"
+                    height="80%"
+                    borderRadius="5px"
+                  >
                     <Box bgColor={1} padding="10px">
-                      <img src={coinObject.image.thumb} height="15px" />
+                      <img src={coinObject.image.thumb} height="25px" />
                     </Box>
                     <Box>
                       {coinObject.name +
@@ -68,15 +106,28 @@ export default function Coin() {
                         ")"}
                     </Box>
                   </Box>
-                  <Box fontSize="10px" padding="5px">
-                    {coinObject.links.homepage[0]}
+                  <Box
+                    fontSize="8px"
+                    justifyContent="center"
+                    alignItems="center"
+                    padding="5px"
+                    bgColor={0}
+                    width="100%"
+                    height="15%"
+                    borderRadius="5px"
+                  >
+                    <a href={coinObject.links.homepage[0]}>
+                      <Box isHoverable={true}>
+                        {formatLink(coinObject.links.homepage[0])}
+                      </Box>
+                    </a>
                   </Box>
                 </Box>
                 <Box
                   width="35%"
                   bgColor={0}
                   p="15px"
-                  borderRadius="10px"
+                  borderRadius="5px"
                   flexDirection="column"
                   alignItems="center"
                   justifyContent="space-between"
@@ -116,7 +167,7 @@ export default function Coin() {
                   bgColor={0}
                   p="15px"
                   fontSize="10px"
-                  borderRadius="10px"
+                  borderRadius="5px"
                   flexDirection="column"
                 >
                   <Box>
@@ -154,11 +205,72 @@ export default function Coin() {
                     Max Supply: {formatNum(coinObject.market_data.max_supply)}{" "}
                     {coinObject.symbol.toUpperCase()}
                   </Box>
+                  <ColorPair
+                    pair={createPair(
+                      coinObject.market_data.total_supply,
+                      coinObject.market_data.circulating_supply
+                    )}
+                    colorNumber={coinObject.market_cap_rank}
+                  />
                 </Box>
               </Box>
               <Box>Description</Box>
-              <Box bgColor={0} p="15px" borderRadius="10px" fontSize="10px">
-                {coinObject.description.en}
+              <Box
+                bgColor={0}
+                p="15px"
+                borderRadius="5px"
+                fontSize="10px"
+                display="inline"
+              >
+                {parse(coinObject.description.en)}
+              </Box>
+              <Box
+                fontSize="8px"
+                justifyContent="space-between"
+                gridColumnGap="10px"
+              >
+                <Box
+                  justifyContent="center"
+                  alignItems="center"
+                  padding="10px"
+                  bgColor={0}
+                  borderRadius="5px"
+                  width="100%"
+                >
+                  <a href={coinObject.links.blockchain_site?.[0]}>
+                    <Box isHoverable={true}>
+                      {formatLink(coinObject.links.blockchain_site?.[0])}
+                    </Box>
+                  </a>
+                </Box>
+                <Box
+                  justifyContent="center"
+                  alignItems="center"
+                  padding="10px"
+                  bgColor={0}
+                  borderRadius="5px"
+                  width="100%"
+                >
+                  <a href={coinObject.links.blockchain_site?.[1]}>
+                    <Box isHoverable={true}>
+                      {formatLink(coinObject.links.blockchain_site?.[1])}
+                    </Box>
+                  </a>
+                </Box>
+                <Box
+                  justifyContent="center"
+                  alignItems="center"
+                  padding="10px"
+                  bgColor={0}
+                  borderRadius="5px"
+                  width="100%"
+                >
+                  <a href={coinObject.links.blockchain_site?.[2]}>
+                    <Box isHoverable={true}>
+                      {formatLink(coinObject.links.blockchain_site?.[2])}
+                    </Box>
+                  </a>
+                </Box>
               </Box>
             </Box>
           </Box>
