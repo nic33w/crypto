@@ -44,61 +44,60 @@ export default function Coins() {
   }
 
   return (
-    <div>
+    <Box flex="auto">
       {bitcoinObject ? (
-        <div>
+        <Box
+          width="100vw"
+          alignItems="center"
+          flexDirection="column"
+          bgColor={1}
+          flex="auto"
+        >
           <Box
-            width="100vw"
-            justifyContent="center"
-            alignItems="center"
+            width="90%"
+            maxWidth={1024}
             flexDirection="column"
-            bgColor={1}
+            gridRowGap="20px"
+            mt="20px"
+            flex="auto"
           >
-            <Box
-              width="90%"
-              maxWidth={1024}
-              flexDirection="column"
-              gridRowGap="20px"
-              mt="20px"
-            >
-              <Box justifyContent="flex-start">Your Overview</Box>
-              <BitcoinCharts bitcoinObject={bitcoinObject} />
-              <Box justifyContent="flex-start">Your Overview</Box>
-              <Box flexDirection="column">
-                <Box maxWidth="120px">
-                  <Select
-                    pt="0px"
-                    mt="0px"
-                    bgColor={1}
-                    onChange={(e: { target: { value: string } }) =>
-                      dispatch(setOrder(e.target.value))
-                    }
-                  >
-                    <option key="0" value="market_cap_desc">
-                      Top Market
-                    </option>
-                    <option key="1" value="market_cap_asc">
-                      Bot Market
-                    </option>
-                    <option key="2" value="volume_desc">
-                      Top Volume
-                    </option>
-                    <option key="3" value="volume_asc">
-                      Bot Volume
-                    </option>
-                  </Select>
-                </Box>
-                <CoinsTable
-                  marketsArray={marketsArray}
-                  handleAddMoreMarketsArray={handleAddMoreMarketsArray}
-                />
+            <Box justifyContent="flex-start">Your Overview</Box>
+            <BitcoinCharts bitcoinObject={bitcoinObject} />
+            <Box justifyContent="flex-start">Your Overview</Box>
+            <Box flexDirection="column" flex="auto">
+              <Box maxWidth="120px">
+                <Select
+                  pt="0px"
+                  mt="0px"
+                  bgColor={1}
+                  onChange={(e: { target: { value: string } }) =>
+                    dispatch(setOrder(e.target.value))
+                  }
+                >
+                  <option key="0" value="market_cap_desc">
+                    Top Market
+                  </option>
+                  <option key="1" value="market_cap_asc">
+                    Bot Market
+                  </option>
+                  <option key="2" value="volume_desc">
+                    Top Volume
+                  </option>
+                  <option key="3" value="volume_asc">
+                    Bot Volume
+                  </option>
+                </Select>
               </Box>
+              <CoinsTable
+                marketsArray={marketsArray}
+                handleAddMoreMarketsArray={handleAddMoreMarketsArray}
+              />
             </Box>
           </Box>
-        </div>
+        </Box>
       ) : (
         <div></div>
       )}
-    </div>
+    </Box>
   );
 }

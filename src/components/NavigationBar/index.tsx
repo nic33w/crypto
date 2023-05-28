@@ -29,8 +29,13 @@ export default function NavigationBar() {
   }, []);
 
   return (
-    <Box bgColor={0}>
-      <Box justifyContent="space-between" width="100vw" bgColor={0}>
+    <Box bgColor={0} justifyContent="center">
+      <Box
+        justifyContent="space-between"
+        width="100vw"
+        maxWidth="1024px"
+        bgColor={0}
+      >
         <nav>
           <Box>
             <Link to="/coins/">
@@ -39,7 +44,6 @@ export default function NavigationBar() {
                 p="10px"
                 m="10px"
                 mx="5px"
-                ml="50px"
                 fontWeight="bold"
                 bgColor={2}
                 borderRadius="10px"

@@ -99,33 +99,42 @@ export default function CoinsTable(props: any) {
       borderRadius="10px"
       bgColor={0}
       p="10px"
+      flex="auto"
+      height="10vh"
+      id="scrollableBox"
     >
       <TableHeader />
-      <InfiniteScroll
-        dataLength={props.marketsArray.length}
-        next={props.handleAddMoreMarketsArray}
-        hasMore={true}
-        loader={<div>Loading...</div>}
-        height={450}
+      <div
+        style={{ display: "flex", overflow: "auto", flexDirection: "column" }}
       >
-        <Box
-          fontSize="12px"
-          width="100%"
-          maxWidth="1024px"
-          flexDirection="column"
-          alignItems="center"
-        >
-          {props.marketsArray.map(
-            (coin: { rank: number; id: string }, index: number) => (
-              <TableRow
-                key={`${coin.rank}${coin.id}${index}`}
-                coin={coin}
-                index={index}
-              />
-            )
-          )}
-        </Box>
-      </InfiniteScroll>
+        <div id="scrollableDiv" style={{ flex: "auto" }}>
+          <InfiniteScroll
+            dataLength={props.marketsArray.length}
+            next={props.handleAddMoreMarketsArray}
+            hasMore={true}
+            loader={<div>Loading...</div>}
+            scrollableTarget="scrollableDiv"
+          >
+            <Box
+              fontSize="12px"
+              width="100%"
+              maxWidth="1024px"
+              flexDirection="column"
+              alignItems="center"
+            >
+              {props.marketsArray.map(
+                (coin: { rank: number; id: string }, index: number) => (
+                  <TableRow
+                    key={`${coin.rank}${coin.id}${index}`}
+                    coin={coin}
+                    index={index}
+                  />
+                )
+              )}
+            </Box>
+          </InfiniteScroll>
+        </div>
+      </div>
     </Box>
   );
 }
