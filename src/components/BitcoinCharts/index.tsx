@@ -25,7 +25,10 @@ export default function BitcoinCharts(props: any) {
       <Box width="48%" flexDirection="column" borderRadius="10px" bgColor={0}>
         <ChartTitle
           line1="BTC"
-          line2={"$" + formatNum(props.bitcoinObject.prices[lastIndex][1])}
+          line2={
+            props.currencySymbol +
+            formatNum(props.bitcoinObject.prices[lastIndex][1])
+          }
           line3={today.toDateString()}
         />
         <CryptoChart
@@ -37,7 +40,10 @@ export default function BitcoinCharts(props: any) {
       <Box width="48%" flexDirection="column" borderRadius="10px" bgColor={0}>
         <ChartTitle
           line1="Volume 24h"
-          line2={"$" + formatNum(props.bitcoinObject.volumes[lastIndex][1])}
+          line2={
+            props.currencySymbol +
+            formatNum(props.bitcoinObject.volumes[lastIndex][1])
+          }
           line3={today.toDateString()}
         />
         <CryptoChart

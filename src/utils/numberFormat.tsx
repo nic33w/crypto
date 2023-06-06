@@ -31,4 +31,21 @@ const getBackgroundColor = (props: {
   }
 };
 
-export { formatNum, formatNumExact, getBackgroundColor };
+function getCurrencySymbol(currency: string) {
+  switch (currency) {
+    case "usd":
+      return "$";
+    case "gbp":
+      return "£";
+    case "eur":
+      return "€";
+    case "btc":
+      return "₿";
+    case "eth":
+      return "Ξ";
+    default:
+      return "";
+  }
+}
+
+export { formatNum, formatNumExact, getBackgroundColor, getCurrencySymbol };
