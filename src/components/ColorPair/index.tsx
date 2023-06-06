@@ -1,6 +1,8 @@
 // @ts-ignore
 import Box from "../Box";
 import React from "react";
+import PercentageBar from "../PercentageBar";
+import { formatNum } from "../../utils/numberFormat";
 
 function getColors(number: number) {
   switch (number % 5) {
@@ -21,6 +23,9 @@ function getColors(number: number) {
 
 export default function ColorPair(props: any) {
   const colors = getColors(props.colorNumber);
+  const percent =
+    props.pair[1] > 0 ? (props.pair[0] / props.pair[1]) * 100 : 100;
+  console.log("percent: ", percent, props);
   return (
     <Box width="100%" flexDirection="column">
       <Box justifyContent="space-between">
@@ -32,7 +37,12 @@ export default function ColorPair(props: any) {
             height="5px"
             mr="5px"
           ></Box>
-          <Box color={colors[0]}>{props.pair[0]}</Box>
+          <Box color={colors[0]}>
+            {(props.currencySymbol ? props.currencySymbol : "") +
+              (props.isPercent === true
+                ? props.pair[0] + "%"
+                : formatNum(props.pair[0]))}
+          </Box>
         </Box>
         <Box alignItems="center">
           <Box
@@ -42,25 +52,17 @@ export default function ColorPair(props: any) {
             height="5px"
             mr="5px"
           ></Box>
-          <Box color={colors[1]}>{props.pair[1]}</Box>
+          <Box color={colors[1]}>
+            {(props.currencySymbol ? props.currencySymbol : "") +
+              (props.isPercent === true
+                ? props.pair[1] + "%"
+                : formatNum(props.pair[1]))}
+          </Box>
         </Box>
       </Box>
-      <Box width="100%">
-        <Box
-          width="50%"
-          borderTopLeftRadius="5px"
-          borderBottomLeftRadius="5px"
-          borderColor={colors[0]}
-          borderStyle="solid"
-        ></Box>
-        <Box
-          width="50%"
-          borderTopRightRadius="5px"
-          borderBottomRightRadius="5px"
-          borderColor={colors[1]}
-          borderStyle="solid"
-        ></Box>
-      </Box>
+
+      <PercentageBar colorNumber={props.colorNumber} percent={percent} />
     </Box>
   );
 }
+//<PercentageBar colorNumber={props.colorNumber} percent="50%" />

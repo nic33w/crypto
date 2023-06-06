@@ -11,10 +11,12 @@ import Select from "../../components/Select";
 import { getBitcoinObject, getMarketsArray } from "../../utils/coingecko";
 // @ts-ignore
 import { setOrder } from "../../components/NavigationBar/navigationBarSlice";
+import { getCurrencySymbol } from "../../utils/numberFormat";
 
 export default function Coins() {
   const [bitcoinObject, setBitcoinObject] = useState<any>();
   const [marketsArray, setMarketsArray] = useState<any>([]);
+  const [currencySymbol, setCurrencySymbol] = useState<any>("$");
   const currency = useSelector(
     (state: { navigationBar: { currency: string } }) =>
       state.navigationBar.currency
@@ -35,6 +37,7 @@ export default function Coins() {
     };
     asyncSetMarketsArray();
     asyncSetBitcoinObject();
+    setCurrencySymbol(getCurrencySymbol(currency));
   }, [currency, order]);
 
   async function handleAddMoreMarketsArray() {
@@ -55,14 +58,17 @@ export default function Coins() {
         >
           <Box
             width="90%"
-            maxWidth={1024}
+            maxWidth={1070}
             flexDirection="column"
             gridRowGap="20px"
             mt="20px"
             flex="auto"
           >
             <Box justifyContent="flex-start">Your Overview</Box>
-            <BitcoinCharts bitcoinObject={bitcoinObject} />
+            <BitcoinCharts
+              bitcoinObject={bitcoinObject}
+              currencySymbol={currencySymbol}
+            />
             <Box justifyContent="flex-start">Your Overview</Box>
             <Box flexDirection="column" flex="auto">
               <Box maxWidth="120px">
@@ -91,6 +97,7 @@ export default function Coins() {
               <CoinsTable
                 marketsArray={marketsArray}
                 handleAddMoreMarketsArray={handleAddMoreMarketsArray}
+                currencySymbol={currencySymbol}
               />
             </Box>
           </Box>

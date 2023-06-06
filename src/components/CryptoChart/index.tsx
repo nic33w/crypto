@@ -30,10 +30,16 @@ ChartJS.register(
 export default function CryptoChart(props: any) {
   const labels = props.data.map((element: any) => {
     const d = new Date(element[0]);
-    return d.getMonth() + 1 + "-" + d.getDate();
+
+    return d.getDate();
   });
+  const padding =
+    props.type === "line" ? {} : { left: 50, right: 50, bottom: 20 };
 
   const options = {
+    layout: {
+      padding: padding,
+    },
     plugins: {
       legend: {
         display: false,
@@ -46,6 +52,11 @@ export default function CryptoChart(props: any) {
 
       x: {
         display: props.showLabels,
+        ticks: {
+          maxTicksLimit: 15,
+          maxRotation: 0,
+          minRotation: 0,
+        },
       },
     },
   };

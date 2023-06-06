@@ -5,7 +5,11 @@ import parse from "html-react-parser";
 // @ts-ignore
 import Box from "../../components/Box";
 import { getCoinObject } from "../../utils/coingecko";
-import { formatNum, formatNumExact } from "../../utils/numberFormat";
+import {
+  formatNum,
+  formatNumExact,
+  getCurrencySymbol,
+} from "../../utils/numberFormat";
 import { useSelector } from "react-redux";
 import ColorPair from "../../components/ColorPair";
 
@@ -45,16 +49,16 @@ export default function Coin() {
   function createPair(
     total_supply: number | string,
     circulating_supply: number | string
-  ): [string, string] {
+  ): [number, number] {
     if (
       typeof total_supply === "number" &&
       typeof circulating_supply === "number"
     ) {
       const percentage2 = Math.round((100 * circulating_supply) / total_supply);
       const percentage1 = 100 - percentage2;
-      return [percentage1 + "%", percentage2 + "%"];
+      return [percentage1, percentage2];
     } else {
-      return ["NA", "NA"];
+      return [1, 2];
     }
   }
 
@@ -68,11 +72,11 @@ export default function Coin() {
             justifyContent="center"
             flexDirection="column"
             bgColor={1}
-            fontSize="12px"
+            fontSize="15px"
           >
             <Box
               width="90%"
-              maxWidth="665px"
+              maxWidth="1070px"
               height="100%"
               flexDirection="column"
               gridRowGap="20px"
@@ -107,7 +111,7 @@ export default function Coin() {
                     </Box>
                   </Box>
                   <Box
-                    fontSize="8px"
+                    fontSize="12px"
                     justifyContent="center"
                     alignItems="center"
                     padding="5px"
@@ -131,18 +135,20 @@ export default function Coin() {
                   flexDirection="column"
                   alignItems="center"
                   justifyContent="space-between"
-                  fontSize="10px"
+                  fontSize="12px"
                 >
                   <Box fontSize="20px" fontWeight="bold">
-                    $
-                    {formatNumExact(
-                      coinObject.market_data.current_price[currency]
-                    )}
+                    {getCurrencySymbol(currency) +
+                      formatNumExact(
+                        coinObject.market_data.current_price[currency]
+                      )}
                   </Box>
                   <Box flexDirection="column">
                     <Box>
-                      All Time High: $
-                      {formatNumExact(coinObject.market_data.ath[currency])}
+                      All Time High:
+                      {" " +
+                        getCurrencySymbol(currency) +
+                        formatNumExact(coinObject.market_data.ath[currency])}
                     </Box>
                     <Box>
                       {new Date(
@@ -152,8 +158,10 @@ export default function Coin() {
                   </Box>
                   <Box flexDirection="column">
                     <Box>
-                      All Time Low: $
-                      {formatNumExact(coinObject.market_data.atl[currency])}
+                      All Time Low:
+                      {" " +
+                        getCurrencySymbol(currency) +
+                        formatNumExact(coinObject.market_data.atl[currency])}
                     </Box>
                     <Box>
                       {new Date(
@@ -166,23 +174,29 @@ export default function Coin() {
                   width="35%"
                   bgColor={0}
                   p="15px"
-                  fontSize="10px"
+                  fontSize="12px"
                   borderRadius="5px"
                   flexDirection="column"
                 >
                   <Box>
-                    Market Cap:{" $"}
-                    {formatNum(coinObject.market_data.market_cap[currency])}
+                    Market Cap:
+                    {" " +
+                      getCurrencySymbol(currency) +
+                      formatNum(coinObject.market_data.market_cap[currency])}
                   </Box>
                   <Box>
-                    Fully Dilluted Valuation:{" $"}
-                    {formatNum(
-                      coinObject.market_data.fully_diluted_valuation[currency]
-                    )}
+                    Fully Dilluted Valuation:
+                    {" " +
+                      getCurrencySymbol(currency) +
+                      formatNum(
+                        coinObject.market_data.fully_diluted_valuation[currency]
+                      )}
                   </Box>
                   <Box>
-                    Volume 24h:{" $"}
-                    {formatNum(coinObject.market_data.total_volume[currency])}
+                    Volume 24h:
+                    {" " +
+                      getCurrencySymbol(currency) +
+                      formatNum(coinObject.market_data.total_volume[currency])}
                   </Box>
                   <Box>
                     Volume / Market:{" "}
@@ -211,6 +225,7 @@ export default function Coin() {
                       coinObject.market_data.circulating_supply
                     )}
                     colorNumber={coinObject.market_cap_rank}
+                    isPercent={true}
                   />
                 </Box>
               </Box>
@@ -219,13 +234,13 @@ export default function Coin() {
                 bgColor={0}
                 p="15px"
                 borderRadius="5px"
-                fontSize="10px"
+                fontSize="12px"
                 display="inline"
               >
                 {parse(coinObject.description.en)}
               </Box>
               <Box
-                fontSize="8px"
+                fontSize="12px"
                 justifyContent="space-between"
                 gridColumnGap="10px"
               >

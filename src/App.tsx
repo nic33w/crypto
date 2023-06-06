@@ -8,6 +8,7 @@ import NavigationBar from "./components/NavigationBar";
 import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 import Box from "./components/Box";
+import MarketData from "./components/MarketData";
 
 const darkTheme = {
   backgroundColor: ["#191b1f", "#1f2128", "#2c2f36"],
@@ -32,6 +33,7 @@ function App() {
         <div>
           <Box height="100vh" flexDirection="column" bgColor={1}>
             <NavigationBar />
+            <MarketData />
             <Routes>
               <Route path="/" element={<Coins />} />
               <Route path="/coin/:coin" element={<Coin />} />

@@ -111,10 +111,32 @@ async function getAllCurrencies() {
   return data;
 }
 
+// marketData
+async function getGlobalObject() {
+  const link = "https://api.coingecko.com/api/v3/global";
+  const data = await getData(link);
+  const {
+    active_cryptocurrencies,
+    markets,
+    total_market_cap,
+    total_volume,
+    market_cap_percentage,
+  } = data.data;
+  const newData = {
+    active_cryptocurrencies,
+    markets,
+    total_market_cap,
+    total_volume,
+    market_cap_percentage,
+  };
+  return newData;
+}
+
 export {
   getBitcoinObject,
   getMarketsArray,
   getCoinObject,
   getCoinPriceByDate,
   getAllCurrencies,
+  getGlobalObject,
 };

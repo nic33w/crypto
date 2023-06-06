@@ -7,6 +7,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { formatNum } from "../../utils/numberFormat";
 import React from "react";
 import ColorPair from "../ColorPair";
+import StyledLink from "../StyledLink";
 
 function getColor(number: number) {
   return number < 0 ? "red" : "lime";
@@ -14,7 +15,7 @@ function getColor(number: number) {
 
 function TableHeader() {
   return (
-    <Box width="98%" justifyContent="space-between" fontWeight="bold">
+    <Box width="98%" justifyContent="space-between" fontWeight="bold" mb="10px">
       <Box width="1%">#</Box>
       <Box width="20%">Name</Box>
       <Box width="4%">Price</Box>
@@ -37,19 +38,19 @@ function TableRow(props: any) {
       alignItems="center"
       borderTop="1px solid"
       borderColor="grey"
-      padding="10px 0px"
+      padding="20px 0px"
     >
       <Box width="1%">{props.coin.rank}</Box>
-      <Box width="20%">
-        <img src={props.coin.image} height="15px" />
+      <Box width="20%" alignItems="center">
+        <img src={props.coin.image} height="20px" />
         <Box pr="5px"></Box>
-        <Link to={"/coin/" + props.coin.id}>
+        <StyledLink to={"/coin/" + props.coin.id}>
           <Box isHoverable={true}>
             {props.coin.name + " (" + props.coin.symbol.toUpperCase() + ")"}
           </Box>
-        </Link>
+        </StyledLink>
       </Box>
-      <Box width="4%">${formatNum(props.coin.price)}</Box>
+      <Box width="4%">{props.currencySymbol + formatNum(props.coin.price)}</Box>
       <Box width="4%" color={getColor(props.coin.price_change_1h)}>
         {props.coin.price_change_1h?.toFixed(2)}%
       </Box>
@@ -61,19 +62,14 @@ function TableRow(props: any) {
       </Box>
       <Box width="19%">
         <ColorPair
-          pair={[
-            formatNum(props.coin.total_volume),
-            formatNum(props.coin.market_cap),
-          ]}
+          currencySymbol={props.currencySymbol}
+          pair={[props.coin.total_volume, props.coin.market_cap]}
           colorNumber={props.index}
         />
       </Box>
       <Box width="19%">
         <ColorPair
-          pair={[
-            formatNum(props.coin.circulating_supply),
-            formatNum(props.coin.total_supply),
-          ]}
+          pair={[props.coin.circulating_supply, props.coin.total_supply]}
           colorNumber={props.index}
         />
       </Box>
@@ -128,6 +124,7 @@ export default function CoinsTable(props: any) {
                     key={`${coin.rank}${coin.id}${index}`}
                     coin={coin}
                     index={index}
+                    currencySymbol={props.currencySymbol}
                   />
                 )
               )}

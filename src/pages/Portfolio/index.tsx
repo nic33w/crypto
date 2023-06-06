@@ -7,7 +7,7 @@ import Box from "../../components/Box";
 // @ts-ignore
 import SelectCoins from "../../components/SelectCoins";
 // @ts-ignore
-import { formatNum } from "../../utils/numberFormat.tsx";
+import { formatNum, getCurrencySymbol } from "../../utils/numberFormat.tsx";
 // @ts-ignore
 import StyledButton from "../../components/StyledButton";
 // @ts-ignore
@@ -75,7 +75,7 @@ export default function Portfolio() {
               {market.name + " (" + market.symbol.toUpperCase() + ")"}
             </Box>
           </Box>
-          <Box width="85%" flexDirection="column" fontSize="10px">
+          <Box width="85%" flexDirection="column" fontSize="12px">
             <Box>Market Price:</Box>
             <Box
               bgColor={0}
@@ -86,13 +86,15 @@ export default function Portfolio() {
               <Box>
                 Current Price:{" "}
                 <Box color="lime" pl="5px">
-                  ${formatNum(market.price)}
+                  {" " + getCurrencySymbol(currency) + formatNum(market.price)}
                 </Box>
               </Box>
               <Box>
                 Price Change 24h:{" "}
                 <Box color="lime" pl="5px">
-                  ${formatNum(market.price_change_24h)}
+                  {" " +
+                    getCurrencySymbol(currency) +
+                    formatNum(market.price_change_24h)}
                 </Box>
               </Box>
               <Box>
@@ -127,14 +129,18 @@ export default function Portfolio() {
                 Amount Value:{" "}
                 <Box color="lime" pl="5px">
                   <Box color="lime" pl="5px">
-                    ${formatNum(asset.purchasedAmount * market.price)}
+                    {" " +
+                      getCurrencySymbol(currency) +
+                      formatNum(asset.purchasedAmount * market.price)}
                   </Box>
                 </Box>
               </Box>
               <Box>
-                Amount price change since purchase:{" $"}
+                Amount price change since purchase:
                 <Box color="lime" pl="5px">
-                  {formatNum(market.price - asset.purchasedPrice)}
+                  {" " +
+                    getCurrencySymbol(currency) +
+                    formatNum(market.price - asset.purchasedPrice)}
                 </Box>
               </Box>
               <Box>
@@ -162,36 +168,30 @@ export default function Portfolio() {
   };
 
   return (
-    <div>
+    <Box justifyContent="center">
       <Box
         width="100vw"
+        maxWidth={1070}
         justifyContent="space-evenly"
         alignItems="center"
         flexDirection="column"
         bgColor={1}
-        p="40px"
-        boxSizing="border-box"
+        py="40px"
         gridRowGap="20px"
         mt="20px"
       >
         <Box>
           <StyledButton
-            width="250px"
+            width="400px"
+            height="70px"
             isPrimary={true}
             onClick={() => setShowModal(true)}
           >
             Add Asset
           </StyledButton>
         </Box>
-        <Box width="100%" maxWidth={1024}>
-          Your statistics
-        </Box>
-        <Box
-          width="100%"
-          maxWidth={1024}
-          flexDirection="column"
-          gridRowGap="10px"
-        >
+        <Box width="100%">Your statistics</Box>
+        <Box width="100%" flexDirection="column" gridRowGap="10px">
           {marketsArray?.length !== 0 ? (
             assetsArray?.map((asset) => (
               <PortoflioAsset
@@ -214,6 +214,6 @@ export default function Portfolio() {
       ) : (
         <></>
       )}
-    </div>
+    </Box>
   );
 }
